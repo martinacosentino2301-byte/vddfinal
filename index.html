@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>100 Estudiantes — Una historia en datos · EE.UU.</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#EBF4FF;
+  --bg2:#F0F7FF;
+  --text:#1A1A2E;
+  --muted:#4A5568;
+  --accent:#4A90D9;
+  --accent2:#b39dfa;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden}
+
+
+#mirror-screen{position:fixed;inset:0;background:linear-gradient(180deg,#EBF4FF 0%,#F0F7FF 100%);z-index:9000;display:none;flex-direction:column;align-items:center;justify-content:center;padding:2rem;transition:opacity .6s;overflow-y:auto;opacity:0}
+#mirror-screen.visible{display:flex;opacity:1}
+#mirror-screen.hidden{opacity:0;pointer-events:none;visibility:hidden}
+.mirror-title{font-family:'Syne',sans-serif;font-size:clamp(1rem,2.2vw,1.4rem);font-weight:800;color:#1A1A2E;text-align:center;margin-bottom:1.2rem;line-height:1.2}
+.mirror-questions{display:flex;flex-direction:column;gap:.7rem;width:100%;max-width:440px}
+.mq{background:#ffffff;border:1px solid rgba(74,144,217,.12);text-align:center;box-shadow:0 2px 12px rgba(74,144,217,.07);border-radius:12px;padding:.8rem 1rem .4rem}
+.mq-label{font-family:'Syne',sans-serif;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent2);margin-bottom:.1rem}
+.mq-text{font-size:.88rem;color:#1A1A2E;margin-bottom:.6rem;font-weight:500}
+.mq-opts{
+  display:flex;
+  justify-content:center;
+  gap:1rem;
+  flex-wrap:wrap;
+}
+.mq-btn{
+  padding:.35rem 1rem;
+  border:2px solid #4A90D9;
+  border-radius:8px;
+  background:white;
+  color:#4A5568;
+  font-family:'Inter',sans-serif;
+  font-size:.78rem;
+  cursor:pointer;
+  transition:all .2s;
+  margin-bottom:6px;
+}
+.mq-btn:hover{
+  background:#4A90D9;
+  border-color:#4A90D9;
+  color:white;
+  transform:translateY(-2px);
+}
+.mq-btn.sel{
+  background:#4A90D9;
+  border-color:#4A90D9;
+  color:white;
+  font-weight:600;
+  
+}
+.mirror-cta{margin-top:1.2rem;padding:.7rem 2.2rem;background:var(--accent2);border:none;border-radius:4px;font-family:'Syne',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fff;cursor:pointer;opacity:.35;transition:all .3s;pointer-events:none;box-shadow:0 4px 20px rgba(179,157,250,.3)}
+.mirror-cta.ready{opacity:1;pointer-events:all}
+.mirror-cta.ready:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(179,157,250,.45)}
+.mirror-skip{margin-top:.8rem;background:transparent;border:none;color:#6e6c8a;font-family:'Inter',sans-serif;font-size:.8rem;cursor:pointer;text-decoration:underline;opacity:.6;transition:opacity .2s}
+.mirror-skip:hover{opacity:1}
+
+/* ── COVER / PORTADA ── */
+#cover{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:5rem 2rem 10rem;position:relative;overflow:hidden;background:linear-gradient(180deg,#ddeeff 0%,#EBF4FF 60%,#fff 100%)}
+#cover::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(74,144,217,.1) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;opacity:.6}
+#cover-walk{position:absolute;bottom:0;left:0;width:100%;height:130px;pointer-events:none}
+.cover-inner{position:relative;z-index:2;max-width:900px;width:90vw}
+.cover-label{font-family:'Syne',sans-serif;font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:var(--accent);opacity:.7;margin-bottom:1.8rem}
+.cover-big-num{font-family:'Syne',sans-serif;font-size:clamp(5rem,16vw,11rem);font-weight:800;color:var(--accent);line-height:.85;letter-spacing:-.05em;margin-bottom:.4rem}
+.cover-title{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:800;color:var(--text);letter-spacing:.05em;line-height:1.2;margin-bottom:1.8rem;text-transform:uppercase}
+.cover-rule{width:48px;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;margin:0 auto 1.6rem}
+.cover-desc{font-size:.9rem;color:var(--muted);line-height:1.85;max-width:460px;margin:0 auto 2.6rem}
+.cover-actions{display:flex;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap}
+.cover-cta{padding:.95rem 2.8rem;background:var(--accent);border:none;border-radius:3px;font-family:'Syne',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fff;cursor:pointer;transition:all .25s}
+.cover-cta:hover{background:#357ABD;transform:translateY(-2px);box-shadow:0 8px 28px rgba(74,144,217,.3)}
+.cover-cta-arrow{display:inline-block;margin-left:.5rem;transition:transform .25s}
+.cover-cta:hover .cover-cta-arrow{transform:translateX(5px)}
+.cover-skip-label{font-size:.72rem;color:var(--muted);letter-spacing:.08em;cursor:pointer;opacity:.45;border-bottom:1px solid rgba(74,85,104,.2);padding-bottom:1px;transition:opacity .2s}
+.cover-skip-label:hover{opacity:.8}
+.cover-scroll-hint{position:absolute;bottom:1.6rem;left:50%;color:rgba(74,144,217,.35);animation:nudge 2.2s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+.eyebrow{font-family:'Syne',sans-serif;font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--text);margin-bottom:1.5rem;position:relative;z-index:3;opacity:.7}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+
+/* ── INTRO ── */
+#intro{min-height:70vh;display:flex;align-items:center;justify-content:center;padding:5rem 2rem;background:linear-gradient(180deg,#fff 0%,var(--bg) 100%)}
+.ibox{max-width:580px;text-align:center}
+.ibox h2{font-family:'Syne',sans-serif;font-size:clamp(1.5rem,3vw,2.4rem);font-weight:800;line-height:1.2;margin-bottom:1.3rem;color:var(--text)}
+.ibox h2 em{color:var(--accent);font-style:normal}
+.ibox p{font-size:1rem;color:var(--muted);line-height:1.75;margin-bottom:.8rem}
+.ibar{width:40px;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));margin:1.5rem auto;border-radius:2px}
+
+/* ── STAGE ── */
+#wrap{position:relative}
+#sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(180deg,#F0F6FF 0%,#F5F8FF 100%)}
+#mc{display:block}
+.ss{position:relative;z-index:20;pointer-events:none;height:230vh}
+
+/* ── PANELS (bright style) ── */
+.panel{position:absolute;top:50%;transform:translateY(-50%);width:min(300px,42vw);background:#fff;border-radius:12px;box-shadow:0 8px 40px rgba(74,144,217,.12),0 2px 8px rgba(0,0,0,.06);opacity:0;transition:opacity .5s ease,transform .5s ease;pointer-events:none;overflow:hidden;transform:translateY(-50%) translateX(-8px)}
+.panel::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--panel-accent,var(--accent))}
+.panel.L{left:3.5vw}.panel.R{right:3.5vw}.panel.on{opacity:1;transform:translateY(-50%) translateX(0)}
+.panel-inner{padding:2rem 1.8rem 1.8rem}
+.p-num{font-family:'Syne',sans-serif;font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--panel-accent,var(--accent));margin-bottom:1.4rem;display:flex;align-items:center;gap:.6rem}
+.p-num::after{content:'';flex:1;height:1px;background:var(--panel-accent,var(--accent));opacity:.25}
+.p-big{font-family:'Syne',sans-serif;font-size:4.5rem;font-weight:800;line-height:.85;color:var(--text);margin-bottom:.5rem;letter-spacing:-.05em}
+.p-big sub{font-size:1.3rem;vertical-align:middle;font-weight:400;color:var(--muted);letter-spacing:0}
+.p-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.7rem;line-height:1.2}
+.p-text{font-size:.82rem;color:var(--muted);line-height:1.65;margin-bottom:1.3rem}
+.p-legend{display:flex;flex-direction:column;gap:.5rem;border-top:1px solid rgba(0,0,0,.07);padding-top:1rem}
+.pleg{display:flex;align-items:center;gap:.65rem;font-size:.78rem;color:var(--muted)}
+.pleg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.pleg-count{margin-left:auto;font-family:'Syne',sans-serif;font-size:.7rem;color:var(--text);opacity:.5}
+.p-bar-wrap{margin-top:1rem;display:flex;flex-direction:column;gap:.35rem}
+.p-bar-row{display:flex;align-items:center;gap:.6rem;font-size:.74rem;color:var(--muted)}
+.p-bar-track{flex:1;height:4px;background:rgba(0,0,0,.07);border-radius:2px;overflow:hidden}
+.p-bar-fill{height:100%;border-radius:2px}
+
+/* ── NARRATOR (light style) ── */
+#narrator{position:fixed;bottom:3.5rem;left:50%;transform:translateX(-50%);max-width:520px;width:90vw;z-index:300;pointer-events:none;text-align:center;transition:opacity .5s}
+.nar-bubble{display:inline-block;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(74,144,217,.2);border-radius:12px;box-shadow:0 8px 32px rgba(74,144,217,.15),0 2px 8px rgba(0,0,0,.06);padding:1rem 1.6rem;font-size:.88rem;color:var(--text);line-height:1.6;opacity:0;transform:translateY(10px);transition:opacity .5s,transform .5s;max-width:100%}
+.nar-bubble.on{opacity:1;transform:translateY(0)}
+.nar-bubble em{color:var(--accent);font-style:normal;font-weight:600}
+
+/* ── SCATTER AXES ── */
+#scatter-axes{position:fixed;inset:0;pointer-events:none;z-index:2;opacity:0;transition:opacity .8s}
+#scatter-axes.on{opacity:1}
+.ax-label{position:absolute;font-family:'Syne',sans-serif;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(26,26,46,.4)}
+
+/* ── SCENE TAG ── */
+#stag{position:fixed;top:1.4rem;left:50%;transform:translateX(-50%);font-family:'Syne',sans-serif;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border:1px solid rgba(74,144,217,.15);padding:.35rem 1rem;border-radius:2rem;opacity:0;transition:opacity .4s;z-index:500;pointer-events:none;white-space:nowrap;box-shadow:0 2px 12px rgba(74,144,217,.1)}
+#stag.on{opacity:1}
+
+/* ── DOTS ── */
+#dots{position:fixed;right:1.6rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:.5rem;z-index:500;transition:opacity .5s}
+.pd{width:6px;height:6px;border-radius:50%;background:rgba(74,144,217,.25);opacity:1;transition:all .35s;cursor:pointer}
+.pd.on{background:var(--accent);transform:scale(1.6);box-shadow:0 0 0 3px rgba(74,144,217,.2)}
+
+/* ── MIRROR BADGE ── */
+#mirror-badge{position:fixed;top:1.4rem;right:1.6rem;z-index:400;display:none;align-items:center;gap:.5rem;font-family:'Syne',sans-serif;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent2);background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border:1px solid rgba(179,157,250,.25);padding:.38rem .9rem;border-radius:2rem;box-shadow:0 4px 16px rgba(179,157,250,.2);transition:opacity .5s}
+#mirror-badge.show{display:flex}
+.mirror-dot{width:7px;height:7px;border-radius:50%;background:var(--accent2);animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
+
+
+#closing{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5rem 2rem;background:var(--bg2);position:relative;overflow:hidden}
+#closing::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 50% 60%,rgba(74,144,217,.06) 0%,transparent 70%)}
+.ct{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,4.5vw,3.5rem);font-weight:800;max-width:680px;line-height:1.1;margin-bottom:1.5rem;position:relative;color:var(--text)}
+.ct em{color:var(--accent);font-style:normal}
+.ctext{max-width:480px;font-size:.98rem;color:var(--muted);line-height:1.75;margin-bottom:3rem;position:relative}
+.profile{background:#fff;border:1px solid rgba(74,144,217,.1);border-radius:16px;padding:2.2rem 2.8rem;max-width:420px;text-align:left;position:relative;box-shadow:0 12px 48px rgba(74,144,217,.1),0 2px 8px rgba(0,0,0,.04)}
+.profile::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:8px 8px 0 0}
+.pf-name{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:.15rem;color:var(--text)}
+.pf-sub{font-size:.72rem;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.3rem}
+.pf-row{display:flex;justify-content:space-between;align-items:center;font-size:.84rem;padding:.5rem 0;border-bottom:1px solid rgba(74,144,217,.07);color:var(--muted)}
+.pf-row span:last-child{color:var(--text);font-weight:500}
+
+</style>
+</head>
+<body>
+
+<!-- ══ MIRROR SCREEN ══ -->
+<div id="mirror-screen">
+  <h1 class="mirror-title">Antes de entrar al aula,<br>una pregunta rápida.</h1>
+  <div class="mirror-questions">
+    <div class="mq">
+      <div class="mq-text">¿Con qué género te identificás?</div>
+      <div class="mq-opts">
+        <button class="mq-btn" data-q="1" data-v="F">Mujer</button>
+        <button class="mq-btn" data-q="1" data-v="M">Varón</button>
+        <button class="mq-btn" data-q="1" data-v="NB">No binario</button>
+      </div>
+    </div>
+    <div class="mq">
+      <div class="mq-text">¿Trabajás mientras estudiás?</div>
+      <div class="mq-opts">
+        <button class="mq-btn" data-q="2" data-v="si">Sí</button>
+        <button class="mq-btn" data-q="2" data-v="no">No</button>
+      </div>
+    </div>
+    <div class="mq">
+      <div class="mq-text">¿Cómo financiás tus estudios?</div>
+      <div class="mq-opts">
+        <button class="mq-btn" data-q="3" data-v="beca">Beca</button>
+        <button class="mq-btn" data-q="3" data-v="familiar">Familia</button>
+        <button class="mq-btn" data-q="3" data-v="propio">Recursos propios</button>
+      </div>
+    </div>
+    <div class="mq">
+      <div class="mq-text">¿Tenés acceso confiable a internet?</div>
+      <div class="mq-opts">
+        <button class="mq-btn" data-q="4" data-v="si">Sí</button>
+        <button class="mq-btn" data-q="4" data-v="no">No</button>
+      </div>
+    </div> 
+  </div>
+  <button class="mirror-cta" id="mirror-enter">Entrar al aula →</button>
+  <button class="mirror-skip" id="mirror-skip">Saltar →</button>
+</div>
+
+<!-- ══ MIRROR BADGE ══ -->
+<div id="mirror-badge"><div class="mirror-dot"></div>Tu figura está iluminada</div>
+
+<!-- ══ INDEX NAV DOTS ══ -->
+<nav id="dots">
+  <div class="pd on" data-s="0"></div>
+  <div class="pd" data-s="1"></div>
+  <div class="pd" data-s="2"></div>
+  <div class="pd" data-s="3"></div>
+  <div class="pd" data-s="4"></div>
+  <div class="pd" data-s="5"></div>
+  <div class="pd" data-s="6"></div>
+  <div class="pd" data-s="7"></div>
+  <div class="pd" data-s="8"></div>
+</nav>
+<div id="stag"></div>
+<div id="narrator"><div class="nar-bubble" id="nar-bubble"></div></div>
+
+<!-- Scatter axes overlay -->
+<div id="scatter-axes">
+  <div class="ax-label" style="bottom:8%;left:50%;transform:translateX(-50%)">← Menos horas de trabajo · Más horas de trabajo →</div>
+  <div class="ax-label" style="left:3%;top:50%;transform:translateY(-50%) rotate(-90deg)">↑ Bienestar alto</div>
+</div>
+
+<!-- ══ COVER / PORTADA ══ -->
+<section id="cover">
+  <canvas id="cover-walk"></canvas>
+  <div class="cover-inner">
+    <h1 class="cover-title">¿Creés que solo estudiar define tu nota?</h1>
+    <div class="cover-rule"></div>
+    <p class="cover-desc">1000 estudiantes universitarios de EE.UU. bajo la lupa. Sueño, trabajo, estrés y dinero: lo que realmente mueve el rendimiento académico.</p>
+    <div class="cover-actions">
+      <button class="cover-cta" id="cover-enter">Entrar al aula <span class="cover-cta-arrow">→</span></button>
+      <span class="cover-skip-label">o scrolleá para explorar</span>
+    </div>
+  </div>
+  <div class="cover-scroll-hint">
+    <svg width="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<!-- ══ PART 3: INTRO ══ -->
+<section id="intro">
+  <div class="ibox">
+    <h2>¿Quiénes son los que estudian en las universidades de <em>EE.UU.</em> hoy?</h2>
+    <div class="ibar"></div>
+    <p>Este proyecto convierte 100 perfiles representativos en 100 figuritas animadas. A medida que scrolleás, se reorganizan y cambian de color para revelar los patrones del aula universitaria estadounidense.</p>
+  </div>
+</section>
+
+<!-- ══ PART 4: CANVAS SECTION ══ -->
+<div id="wrap">
+  <div id="sticky"><canvas id="mc"></canvas></div>
+
+  <div class="ss" id="s0">
+    <div class="panel L on" id="p0" style="--panel-accent:#b39dfa">
+      <div class="panel-inner">
+        <div class="p-num">El aula</div>
+        <div class="p-big">100<sub> personas</sub></div>
+        <div class="p-title">Un aula hecha de datos</div>
+        <p class="p-text">100 figuras representativas de 1000 estudiantes universitarios de EE.UU. Cada punto es una persona con su propia historia.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="ss" id="s1">
+    <div class="panel R" id="p1" style="--panel-accent:#f472b6">
+      <div class="panel-inner">
+        <div class="p-num">Escena 01 — Género</div>
+        <div class="p-big">50<sub>%</sub></div>
+        <div class="p-title">La paridad llegó al aula</div>
+        <p class="p-text">Las universidades de EE.UU. alcanzaron casi la paridad de género.</p>
+        <div class="p-legend">
+          <div class="pleg"><div class="pleg-dot" style="background:#f472b6"></div>Mujeres<span class="pleg-count">50</span></div>
+          <div class="pleg"><div class="pleg-dot" style="background:#60a5fa"></div>Varones<span class="pleg-count">50</span></div>
+        </div>
+        <div class="p-bar-wrap">
+          <div class="p-bar-row">Mujeres<div class="p-bar-track"><div class="p-bar-fill" style="width:50%;background:#f472b6"></div></div></div>
+          <div class="p-bar-row">Varones<div class="p-bar-track"><div class="p-bar-fill" style="width:50%;background:#60a5fa"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ss" id="s2">
+    <div class="panel L" id="p2" style="--panel-accent:#fb923c">
+      <div class="panel-inner">
+        <div class="p-num">Escena 02 — Trabajo</div>
+        <div class="p-big">34<sub>%</sub></div>
+        <div class="p-title">1 de cada 3 trabaja mientras estudia</div>
+        <p class="p-text">Un tercio de los estudiantes tiene trabajo de medio tiempo, lo que comprime tiempo de estudio y sueño.</p>
+        <div class="p-legend">
+          <div class="pleg"><div class="pleg-dot" style="background:#fb923c"></div>Trabaja<span class="pleg-count">34</span></div>
+          <div class="pleg"><div class="pleg-dot" style="background:#d1d5db"></div>No trabaja<span class="pleg-count">66</span></div>
+        </div>
+        <div class="p-bar-wrap">
+          <div class="p-bar-row">Trabaja<div class="p-bar-track"><div class="p-bar-fill" style="width:34%;background:#fb923c"></div></div></div>
+          <div class="p-bar-row">No trabaja<div class="p-bar-track"><div class="p-bar-fill" style="width:66%;background:#d1d5db"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ss" id="s3">
+    <div class="panel R" id="p3" style="--panel-accent:#34d399">
+      <div class="panel-inner">
+        <div class="p-num">Escena 03 — Financiamiento</div>
+        <div class="p-big">3<sub> fuentes</sub></div>
+        <div class="p-title">¿Quién financia la carrera?</div>
+        <p class="p-text">Solo 1 de cada 8 accede a una beca. La mayoría depende de recursos familiares o propios.</p>
+        <div class="p-legend">
+          <div class="pleg"><div class="pleg-dot" style="background:#34d399"></div>Beca<span class="pleg-count">13</span></div>
+          <div class="pleg"><div class="pleg-dot" style="background:#60a5fa"></div>Familia<span class="pleg-count">60</span></div>
+          <div class="pleg"><div class="pleg-dot" style="background:#fbbf24"></div>Recursos propios<span class="pleg-count">27</span></div>
+        </div>
+        <div class="p-bar-wrap">
+          <div class="p-bar-row">Beca<div class="p-bar-track"><div class="p-bar-fill" style="width:13%;background:#34d399"></div></div></div>
+          <div class="p-bar-row">Familia<div class="p-bar-track"><div class="p-bar-fill" style="width:60%;background:#60a5fa"></div></div></div>
+          <div class="p-bar-row">Propio<div class="p-bar-track"><div class="p-bar-fill" style="width:27%;background:#fbbf24"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ss" id="s4">
+    <div class="panel L" id="p4" style="--panel-accent:#f87171">
+      <div class="panel-inner">
+        <div class="p-num">Escena 04 — Conectividad</div>
+        <div class="p-big">8<sub> de 100</sub></div>
+        <div class="p-title">Sin acceso a internet</div>
+        <p class="p-text">El 7.6% estudia sin acceso confiable a internet, lo que impacta directamente en su rendimiento.</p>
+        <div class="p-legend">
+          <div class="pleg"><div class="pleg-dot" style="background:#f87171"></div>Sin internet<span class="pleg-count">8</span></div>
+          <div class="pleg"><div class="pleg-dot" style="background:#4A90D9"></div>Con internet<span class="pleg-count">92</span></div>
+        </div>
+        <div class="p-bar-wrap">
+          <div class="p-bar-row">Sin internet<div class="p-bar-track"><div class="p-bar-fill" style="width:8%;background:#f87171"></div></div></div>
+          <div class="p-bar-row">Con internet<div class="p-bar-track"><div class="p-bar-fill" style="width:92%;background:#4A90D9"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ss" id="s5">
+    <div class="panel R" id="p5" style="--panel-accent:#fbbf24">
+      <div class="panel-inner">
+        <div class="p-num">Escena 05 — Estrés</div>
+        <div class="p-big">4.1<sub>/10</sub></div>
+        <div class="p-title">El estrés que no aparece en las actas</div>
+        <p class="p-text">Nivel de estrés promedio: 4.1/10. Pero un 20% supera el nivel 7, correlacionando con notas más bajas.</p>
+        <div class="p-legend">
+          <div class="pleg"><div class="pleg-dot" style="background:#4ade80"></div>Estrés bajo (&lt;3)<span class="pleg-count">25</span></div>
+          <div class="pleg"><div class="pleg-dot" style="background:#fbbf24"></div>Estrés medio (3–6)<span class="pleg-count">55</span></div>
+          <div class="pleg"><div class="pleg-dot" style="background:#f87171"></div>Estrés alto (&gt;6)<span class="pleg-count">20</span></div>
+        </div>
+        <div class="p-bar-wrap">
+          <div class="p-bar-row">Bajo<div class="p-bar-track"><div class="p-bar-fill" style="width:25%;background:#4ade80"></div></div></div>
+          <div class="p-bar-row">Medio<div class="p-bar-track"><div class="p-bar-fill" style="width:55%;background:#fbbf24"></div></div></div>
+          <div class="p-bar-row">Alto<div class="p-bar-track"><div class="p-bar-fill" style="width:20%;background:#f87171"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ss" id="s6">
+    <div class="panel L" id="p6" style="--panel-accent:#a3e635">
+      <div class="panel-inner">
+        <div class="p-num">Escena 06 — Scatter</div>
+        <div class="p-big">−<sub>correlación</sub></div>
+        <div class="p-title">Más horas de trabajo, más estrés</div>
+        <p class="p-text">Cada figurita vuela a su posición real: eje X = horas de trabajo semanales, eje Y = nivel de estrés. El patrón es claro.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="ss" id="s7">
+    <div class="panel L" id="p7" style="--panel-accent:#b39dfa">
+      <div class="panel-inner">
+        <div class="p-num">Escena 07 — Perfil</div>
+        <div class="p-big">1<sub> / 100</sub></div>
+        <div class="p-title">El estudiante más común</div>
+        <p class="p-text">21 años, STEM, suburbios, sin trabajo de medio tiempo, familia que lo sostiene, internet en casa. Nota promedio: B.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="ss" id="s8">
+    <div class="panel R" id="p8" style="--panel-accent:#6e6c8a">
+      <div class="panel-inner">
+        <div class="p-num">Escena 08 — El aula vacía</div>
+        <div class="p-big" style="font-size:3rem">…</div>
+        <div class="p-title">Detrás de cada dato, una persona.</div>
+        <p class="p-text">Los datos quedan. Las personas, no siempre. Cada lugar vacío es una historia que el sistema no termina de contar.</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end #wrap -->
+
+<!-- ══ PART 5: CLOSING ══ -->
+<section id="closing">
+  <h2 class="ct">Cada número es una <em>persona</em>.<br>Cada persona tiene algo que contar.</h2>
+  <p class="ctext">Estas 100 historias son una muestra de 1000 estudiantes universitarios de EE.UU. Los datos revelan patrones invisibles: el estrés silencioso, la presión económica y la brecha digital.</p>
+  <div class="profile">
+    <div class="pf-name">El estudiante más común</div>
+    <div class="pf-sub">Perfil sintético · EE.UU. Dataset</div>
+    <div class="pf-row"><span>Género</span><span>Femenino</span></div>
+    <div class="pf-row"><span>Edad</span><span>21 años</span></div>
+    <div class="pf-row"><span>Major</span><span>STEM</span></div>
+    <div class="pf-row"><span>Zona</span><span>Suburbana</span></div>
+    <div class="pf-row"><span>¿Trabaja?</span><span>No</span></div>
+    <div class="pf-row"><span>Financiamiento</span><span>Familiar</span></div>
+    <div class="pf-row"><span>Internet</span><span>Sí</span></div>
+    <div class="pf-row"><span>Horas de estudio/día</span><span>4.3 hs</span></div>
+    <div class="pf-row"><span>Nota promedio</span><span>B (70.8/100)</span></div>
+  </div>
+</section>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+// ══════════════════════════════════════════════
+// DATASET — 100 entries
+// Proportions: 50F/50M, 34 working, 13 beca/60 familiar/27 propio
+// 8 without internet (c:false), stress: ~25 low(<3), ~55 med(3-6), ~20 high(>6)
+// b field = wellbeing = 10 - stress_level (so b high = low stress)
+// High stress(>6) → b = 1-3 (20 people)
+// Med stress(3-6) → b = 4-6 (55 people)
+// Low stress(<3)  → b = 7-9 (25 people)
+// ══════════════════════════════════════════════
+// DATA: 100 entries — exact proportions from student_performance.csv (1000 students)
+// F:50, M:50 | working:34, not:66 | beca:13, familiar:60, propio:27
+// no internet:8, has internet:92 | high stress(b<=3):20, med(4-6):55, low(b>=7):25
+// hw = weekly work hours (0 if not working, 10-40 if working)
+const DATA = [
+  {g:"F",t:false,f:"familiar",c:true,b:5,hw:0},
+  {g:"M",t:false,f:"familiar",c:true,b:6,hw:0},
+  {g:"F",t:false,f:"beca",c:true,b:4,hw:0},
+  {g:"M",t:true,f:"familiar",c:true,b:7,hw:10},
+  {g:"F",t:false,f:"familiar",c:true,b:3,hw:0},
+  {g:"M",t:false,f:"familiar",c:true,b:2,hw:0},
+  {g:"F",t:true,f:"familiar",c:true,b:8,hw:12},
+  {g:"M",t:false,f:"familiar",c:true,b:3,hw:0},
+  {g:"F",t:true,f:"familiar",c:true,b:4,hw:14},
+  {g:"M",t:false,f:"familiar",c:true,b:5,hw:0},
+  {g:"F",t:false,f:"propio",c:true,b:9,hw:0},
+  {g:"M",t:true,f:"familiar",c:true,b:2,hw:15},
+  {g:"F",t:false,f:"propio",c:true,b:5,hw:0},
+  {g:"M",t:false,f:"familiar",c:true,b:8,hw:0},
+  {g:"F",t:false,f:"familiar",c:true,b:3,hw:0},
+  {g:"M",t:false,f:"beca",c:true,b:5,hw:0},
+  {g:"F",t:false,f:"familiar",c:true,b:5,hw:0},
+  {g:"M",t:false,f:"propio",c:true,b:7,hw:0},
+  {g:"F",t:false,f:"familiar",c:true,b:4,hw:0},
+  {g:"M",t:false,f:"beca",c:true,b:4,hw:0},
+  {g:"F",t:true,f:"familiar",c:true,b:5,hw:16},
+  {g:"M",t:true,f:"propio",c:true,b:4,hw:18},
+  {g:"F",t:true,f:"beca",c:false,b:5,hw:18},
+  {g:"M",t:false,f:"familiar",c:true,b:2,hw:0},
+  {g:"F",t:false,f:"propio",c:true,b:5,hw:0},
+  {g:"M",t:false,f:"propio",c:true,b:5,hw:0},
+  {g:"F",t:false,f:"beca",c:true,b:3,hw:0},
+  {g:"M",t:true,f:"propio",c:true,b:5,hw:20},
+  {g:"F",t:false,f:"familiar",c:true,b:8,hw:0},
+  {g:"M",t:true,f:"familiar",c:true,b:6,hw:20},
+  {g:"F",t:true,f:"familiar",c:false,b:2,hw:20},
+  {g:"M",t:false,f:"familiar",c:true,b:6,hw:0},
+  {g:"F",t:false,f:"familiar",c:true,b:5,hw:0},
+  {g:"M",t:false,f:"familiar",c:true,b:7,hw:0},
+  {g:"F",t:false,f:"beca",c:true,b:6,hw:0},
+  {g:"M",t:false,f:"beca",c:true,b:4,hw:0},
+  {g:"F",t:false,f:"familiar",c:true,b:6,hw:0},
+  {g:"M",t:false,f:"familiar",c:true,b:6,hw:0},
+  {g:"F",t:false,f:"propio",c:true,b:3,hw:0},
+  {g:"M",t:true,f:"propio",c:true,b:7,hw:22},
+  {g:"F",t:false,f:"propio",c:true,b:4,hw:0},
+  {g:"M",t:true,f:"propio",c:true,b:7,hw:22},
+  {g:"F",t:false,f:"familiar",c:true,b:3,hw:0},
+  {g:"M",t:false,f:"familiar",c:true,b:8,hw:0},
+  {g:"F",t:true,f:"familiar",c:true,b:7,hw:24},
+  {g:"M",t:false,f:"beca",c:true,b:5,hw:0},
+  {g:"F",t:false,f:"propio",c:true,b:4,hw:0},
+  {g:"M",t:false,f:"propio",c:true,b:8,hw:0},
+  {g:"F",t:true,f:"familiar",c:true,b:9,hw:24},
+  {g:"M",t:false,f:"familiar",c:true,b:4,hw:0},
+  {g:"F",t:false,f:"familiar",c:false,b:3,hw:0},
+  {g:"M",t:false,f:"familiar",c:true,b:4,hw:0},
+  {g:"F",t:true,f:"propio",c:true,b:6,hw:25},
+  {g:"M",t:false,f:"propio",c:true,b:9,hw:0},
+  {g:"F",t:true,f:"familiar",c:false,b:4,hw:25},
+  {g:"M",t:false,f:"propio",c:true,b:5,hw:0},
+  {g:"F",t:false,f:"beca",c:true,b:6,hw:0},
+  {g:"M",t:false,f:"propio",c:true,b:2,hw:0},
+  {g:"F",t:true,f:"familiar",c:true,b:2,hw:26},
+  {g:"M",t:false,f:"beca",c:true,b:5,hw:0},
+  {g:"F",t:true,f:"familiar",c:true,b:6,hw:28},
+  {g:"M",t:true,f:"familiar",c:true,b:8,hw:28},
+  {g:"F",t:true,f:"familiar",c:true,b:4,hw:30},
+  {g:"M",t:false,f:"familiar",c:true,b:5,hw:0},
+  {g:"F",t:false,f:"familiar",c:true,b:3,hw:0},
+  {g:"M",t:true,f:"familiar",c:true,b:5,hw:30},
+  {g:"F",t:false,f:"familiar",c:true,b:6,hw:0},
+  {g:"M",t:false,f:"beca",c:true,b:8,hw:0},
+  {g:"F",t:false,f:"propio",c:true,b:6,hw:0},
+  {g:"M",t:true,f:"familiar",c:true,b:4,hw:30},
+  {g:"F",t:true,f:"familiar",c:true,b:4,hw:32},
+  {g:"M",t:false,f:"familiar",c:true,b:9,hw:0},
+  {g:"F",t:false,f:"beca",c:true,b:6,hw:0},
+  {g:"M",t:false,f:"beca",c:true,b:7,hw:0},
+  {g:"F",t:false,f:"propio",c:true,b:5,hw:0},
+  {g:"M",t:false,f:"familiar",c:true,b:8,hw:0},
+  {g:"F",t:true,f:"propio",c:true,b:2,hw:32},
+  {g:"M",t:false,f:"familiar",c:true,b:8,hw:0},
+  {g:"F",t:false,f:"familiar",c:true,b:9,hw:0},
+  {g:"M",t:false,f:"familiar",c:false,b:4,hw:0},
+  {g:"F",t:false,f:"propio",c:true,b:6,hw:0},
+  {g:"M",t:true,f:"familiar",c:true,b:3,hw:34},
+  {g:"F",t:true,f:"propio",c:false,b:5,hw:35},
+  {g:"M",t:false,f:"propio",c:true,b:4,hw:0},
+  {g:"F",t:false,f:"familiar",c:true,b:8,hw:0},
+  {g:"M",t:true,f:"familiar",c:false,b:7,hw:36},
+  {g:"F",t:false,f:"familiar",c:true,b:2,hw:0},
+  {g:"M",t:false,f:"familiar",c:true,b:4,hw:0},
+  {g:"F",t:true,f:"familiar",c:true,b:3,hw:38},
+  {g:"M",t:false,f:"familiar",c:true,b:6,hw:0},
+  {g:"F",t:false,f:"familiar",c:true,b:9,hw:0},
+  {g:"M",t:true,f:"propio",c:false,b:4,hw:40},
+  {g:"F",t:true,f:"familiar",c:true,b:6,hw:40},
+  {g:"M",t:true,f:"familiar",c:true,b:6,hw:12},
+  {g:"F",t:true,f:"propio",c:true,b:6,hw:16},
+  {g:"M",t:false,f:"propio",c:true,b:6,hw:0},
+  {g:"F",t:false,f:"familiar",c:true,b:2,hw:0},
+  {g:"M",t:true,f:"propio",c:true,b:2,hw:20},
+  {g:"F",t:true,f:"familiar",c:true,b:5,hw:24},
+  {g:"M",t:false,f:"familiar",c:true,b:9,hw:0}
+];
+
+// ══════════════════════════════════════════════
+// COVER — stickmen + CTA
+// ══════════════════════════════════════════════
+(function(){
+  const cc=document.getElementById('cover-walk');
+  if(!cc)return;
+  const cx=cc.getContext('2d');
+  let cW,cH;
+  function resize(){cW=cc.width=cc.offsetWidth;cH=cc.height=cc.offsetHeight;}
+  resize();window.addEventListener('resize',resize);
+
+  function drawCoverStick(x,y,s,phase,color,alpha){
+    cx.save();
+    cx.globalAlpha=alpha;
+    cx.translate(x,y);
+    cx.strokeStyle=color;cx.fillStyle=color;
+    cx.lineCap='round';cx.lineJoin='round';
+    cx.lineWidth=Math.max(1.4,s*1.6);
+    const bob=Math.sin(phase*2)*2*s;
+    cx.beginPath();cx.arc(0,-24*s+bob,4*s,0,Math.PI*2);cx.fill();
+    cx.beginPath();cx.moveTo(0,-20*s+bob);cx.lineTo(0,-5*s+bob);cx.stroke();
+    cx.beginPath();cx.moveTo(-5*s,-16*s+bob);cx.lineTo(5*s,-16*s+bob);cx.stroke();
+    const lA=Math.sin(phase)*0.85;
+    cx.save();cx.translate(-5*s,-16*s+bob);cx.rotate(lA);
+      cx.beginPath();cx.moveTo(0,0);cx.lineTo(0,11*s);cx.stroke();
+    cx.restore();
+    cx.save();cx.translate(5*s,-16*s+bob);cx.rotate(-lA);
+      cx.beginPath();cx.moveTo(0,0);cx.lineTo(0,11*s);cx.stroke();
+    cx.restore();
+    const lT=Math.sin(phase)*0.75;
+    cx.save();cx.translate(-2.5*s,-5*s+bob);cx.rotate(lT);
+      cx.beginPath();cx.moveTo(0,0);cx.lineTo(0,14*s);cx.stroke();
+    cx.restore();
+    cx.save();cx.translate(2.5*s,-5*s+bob);cx.rotate(-lT);
+      cx.beginPath();cx.moveTo(0,0);cx.lineTo(0,14*s);cx.stroke();
+    cx.restore();
+    cx.restore();
+  }
+
+  const palette=['#4A90D9','#b39dfa','#2C3E7A','#60a5fa','#a78bfa','rgba(44,62,122,.4)'];
+  const walkers=Array.from({length:18},(_,i)=>({
+    x:(i/18)*(window.innerWidth*1.8)-window.innerWidth*0.1,
+    speed:0.45+Math.random()*0.9,
+    phase:Math.random()*Math.PI*2,
+    scale:0.5+Math.random()*0.4,
+    color:palette[i%palette.length],
+    alpha:0.12+Math.random()*0.28
+  }));
+
+  let coverActive=true;
+  new IntersectionObserver(e=>{coverActive=e[0].isIntersecting;}).observe(document.getElementById('cover'));
+
+  (function loop(){
+    cx.clearRect(0,0,cW,cH);
+    if(coverActive){
+      walkers.forEach(w=>{
+        w.x+=w.speed; w.phase+=0.1;
+        if(w.x>cW+100) w.x=-80;
+        drawCoverStick(w.x,cH-8,w.scale,w.phase,w.color,w.alpha);
+      });
+    }
+    requestAnimationFrame(loop);
+  })();
+})();
+
+document.getElementById('cover-enter').addEventListener('click',()=>{
+  const ms=document.getElementById('mirror-screen');
+  ms.style.display='flex';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{ ms.style.opacity='1'; }));
+});
+
+// ══════════════════════════════════════════════
+// MIRROR — user answers
+// ══════════════════════════════════════════════
+let mirrorAnswers = {q1:null, q2:null, q3:null, q4:null};
+let mirrorPersonIdx = -1;
+
+document.querySelectorAll('.mq-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const q = btn.dataset.q;
+    document.querySelectorAll(`.mq-btn[data-q="${q}"]`).forEach(b=>b.classList.remove('sel'));
+    btn.classList.add('sel');
+    mirrorAnswers['q'+q] = btn.dataset.v;
+    const allAnswered = mirrorAnswers.q1 && mirrorAnswers.q2 && mirrorAnswers.q3 && mirrorAnswers.q4;
+    if(allAnswered) document.getElementById('mirror-enter').classList.add('ready');
+  });
+});
+
+function dismissMirror(showBadge){
+  const ms = document.getElementById('mirror-screen');
+  ms.style.opacity='';
+  ms.classList.add('hidden');
+  setTimeout(()=>{
+    ms.style.display='none';
+    document.getElementById('intro').scrollIntoView({behavior:'smooth'});
+  }, 700);
+  if(showBadge) document.getElementById('mirror-badge').classList.add('show');
+}
+
+document.getElementById('mirror-skip').addEventListener('click',()=>{
+  mirrorPersonIdx = -1;
+  dismissMirror(false);
+});
+
+document.getElementById('mirror-enter').addEventListener('click',()=>{
+  const gen   = mirrorAnswers.q1;
+  const works = mirrorAnswers.q2 === 'si';
+  const fin   = mirrorAnswers.q3;
+  const hasNet= mirrorAnswers.q4 === 'si';
+  let best=-1, bsc=-1;
+  DATA.forEach((d,i)=>{
+    let s=0;
+    if(d.g===gen)    s+=4;
+    if(d.t===works)  s+=3;
+    if(d.f===fin)    s+=2;
+    if(d.c===hasNet) s+=1;
+    if(s>bsc){bsc=s;best=i;}
+  });
+  mirrorPersonIdx = best;
+  dismissMirror(true);
+});
+
+// ══════════════════════════════════════════════
+// MAIN CANVAS
+// ══════════════════════════════════════════════
+const MC=document.getElementById('mc'),MCX=MC.getContext('2d');
+const COLS=20,ROWS=5;
+let mcW,mcH,CW,CH;
+function mcResize(){
+  const st=document.getElementById('sticky');
+  mcW=MC.width=st.offsetWidth; mcH=MC.height=st.offsetHeight;
+  CW=Math.min(mcW*0.68/COLS,34); CH=CW*1.65;
+}
+mcResize(); window.addEventListener('resize',mcResize);
+
+function hexRgb(h){
+  if(h.startsWith('rgb')){const m=h.match(/\d+/g);return[+m[0],+m[1],+m[2]];}
+  const n=parseInt(h.replace('#',''),16);return[(n>>16)&255,(n>>8)&255,n&255];
+}
+function lerpCol(a,b,t){
+  const[r1,g1,b1]=hexRgb(a),[r2,g2,b2]=hexRgb(b);
+  return`rgb(${~~(r1+(r2-r1)*t)},${~~(g1+(g2-g1)*t)},${~~(b1+(b2-b1)*t)})`;
+}
+
+// ── Draw stickman ──
+function drawStickman(x,y,s,phase,runAmt,color,glowColor){
+  MCX.save(); MCX.translate(x,y);
+  if(glowColor){MCX.shadowColor=glowColor;MCX.shadowBlur=14*s;}
+  MCX.strokeStyle=color; MCX.fillStyle=color;
+  MCX.lineCap='round'; MCX.lineJoin='round';
+  const lw=Math.max(2.2,s*1.8); MCX.lineWidth=lw;
+  const bob=Math.sin(phase*2)*3.5*s*runAmt;
+  // head
+  MCX.beginPath();MCX.arc(0,-26*s+bob,4.5*s,0,Math.PI*2);MCX.fill();
+  // neck
+  MCX.beginPath();MCX.moveTo(0,-21.5*s+bob);MCX.lineTo(0,-18*s+bob);MCX.stroke();
+  // torso
+  MCX.beginPath();MCX.moveTo(0,-18*s+bob);MCX.lineTo(0,-5*s+bob);MCX.stroke();
+  // shoulders
+  MCX.beginPath();MCX.moveTo(-4.5*s,-17*s+bob);MCX.lineTo(4.5*s,-17*s+bob);MCX.stroke();
+  // hips
+  MCX.beginPath();MCX.moveTo(-3*s,-5*s+bob);MCX.lineTo(3*s,-5*s+bob);MCX.stroke();
+  // left arm
+  const lA=Math.sin(phase)*0.96*runAmt;
+  MCX.save();MCX.translate(-4.5*s,-17*s+bob);MCX.rotate(lA);
+    MCX.beginPath();MCX.moveTo(0,0);MCX.lineTo(0,7*s);MCX.stroke();
+    MCX.save();MCX.translate(0,7*s);MCX.rotate(-Math.max(0,Math.sin(phase))*1.3*runAmt);
+      MCX.beginPath();MCX.moveTo(0,0);MCX.lineTo(0,6*s);MCX.stroke();
+    MCX.restore();
+  MCX.restore();
+  // right arm
+  const rA=-Math.sin(phase)*0.96*runAmt;
+  MCX.save();MCX.translate(4.5*s,-17*s+bob);MCX.rotate(rA);
+    MCX.beginPath();MCX.moveTo(0,0);MCX.lineTo(0,7*s);MCX.stroke();
+    MCX.save();MCX.translate(0,7*s);MCX.rotate(Math.max(0,-Math.sin(phase))*1.3*runAmt);
+      MCX.beginPath();MCX.moveTo(0,0);MCX.lineTo(0,6*s);MCX.stroke();
+    MCX.restore();
+  MCX.restore();
+  // left leg
+  const lT=Math.sin(phase)*0.85*runAmt;
+  MCX.save();MCX.translate(-3*s,-5*s+bob);MCX.rotate(lT);
+    MCX.beginPath();MCX.moveTo(0,0);MCX.lineTo(0,9*s);MCX.stroke();
+    MCX.save();MCX.translate(0,9*s);MCX.rotate(Math.max(0,Math.sin(phase))*1.6*runAmt);
+      MCX.beginPath();MCX.moveTo(0,0);MCX.lineTo(0,8*s);MCX.stroke();
+      MCX.save();MCX.translate(0,8*s);
+        MCX.beginPath();MCX.moveTo(-1*s,0);MCX.lineTo(3.5*s,0);MCX.stroke();
+      MCX.restore();
+    MCX.restore();
+  MCX.restore();
+  // right leg
+  const rT=-Math.sin(phase)*0.85*runAmt;
+  MCX.save();MCX.translate(3*s,-5*s+bob);MCX.rotate(rT);
+    MCX.beginPath();MCX.moveTo(0,0);MCX.lineTo(0,9*s);MCX.stroke();
+    MCX.save();MCX.translate(0,9*s);MCX.rotate(-Math.max(0,-Math.sin(phase))*1.6*runAmt);
+      MCX.beginPath();MCX.moveTo(0,0);MCX.lineTo(0,8*s);MCX.stroke();
+      MCX.save();MCX.translate(0,8*s);
+        MCX.beginPath();MCX.moveTo(-1*s,0);MCX.lineTo(3.5*s,0);MCX.stroke();
+      MCX.restore();
+    MCX.restore();
+  MCX.restore();
+  MCX.restore(); MCX.shadowBlur=0;
+}
+
+// ══════════════════════════════════════════════
+// PERSON CLASS
+// ══════════════════════════════════════════════
+class Person {
+  constructor(i){
+    this.i=i; this.d=DATA[i];
+    this.x=Math.random()*mcW; this.y=-200-Math.random()*300;
+    this.tx=mcW/2; this.ty=mcH/2;
+    this.vx=0; this.vy=0;
+    this.colA='#2C3E7A'; this.colB='#2C3E7A'; this.colT=1;
+    this.phase=Math.random()*Math.PI*2;
+    this.moving=false; this.moveDir=1;
+    this.runAmt=0; this.trunAmt=0;
+    this.sc=0; this.tsc=1;
+    this.glow=false; this.isSpotlight=false;
+    this.isMirror=false;
+    this.alpha=1; this.tAlpha=1;
+  }
+  setTarget(tx,ty){
+    const dx=tx-this.x;
+    if(Math.abs(dx)>5) this.moveDir=dx>0?1:-1;
+    this.tx=tx; this.ty=ty; this.moving=true; this.trunAmt=1;
+  }
+  setColor(c){
+    this.colA=lerpCol(this.colA,this.colB,this.colT);
+    this.colB=c; this.colT=0;
+  }
+  update(){
+    const dx=this.tx-this.x, dy=this.ty-this.y;
+    const dist=Math.hypot(dx,dy);
+    if(dist<1.5){
+      this.x=this.tx; this.y=this.ty;
+      this.vx=0; this.vy=0; this.moving=false; this.trunAmt=0;
+    } else {
+      const k=0.018,damp=0.88;
+      this.vx=(this.vx+dx*k)*damp; this.vy=(this.vy+dy*k)*damp;
+      this.x+=this.vx; this.y+=this.vy;
+      this.trunAmt=1;
+      if(Math.abs(dx)>5) this.moveDir=dx>0?1:-1;
+    }
+    if(this.moving) this.phase+=0.22;
+    this.runAmt+=(this.trunAmt-this.runAmt)*0.15;
+    if(this.colT<1) this.colT=Math.min(1,this.colT+0.04);
+    this.sc+=(this.tsc-this.sc)*0.1;
+    this.alpha+=(this.tAlpha-this.alpha)*0.06;
+  }
+  draw(){
+    const s=this.sc*CW/28;
+    if(s<0.05||this.alpha<0.01) return;
+    const col=lerpCol(this.colA,this.colB,this.colT);
+    if(this.isMirror && mirrorPersonIdx===this.i){
+      const pulse = 0.5 + 0.5*Math.sin(Date.now()*0.004);
+      MCX.save();
+      for(let layer=0; layer<6; layer++){
+        const r = (12 + layer*12)*s;
+        const a = (0.75 - layer*0.1)*(0.7+0.3*pulse);
+        const grad = MCX.createRadialGradient(this.x, this.y-10*s, 0, this.x, this.y-10*s, r);
+        grad.addColorStop(0, `rgba(255,210,0,${a})`);
+        grad.addColorStop(1, 'rgba(255,210,0,0)');
+        MCX.fillStyle = grad;
+        MCX.beginPath();
+        MCX.arc(this.x, this.y-10*s, r, 0, Math.PI*2);
+        MCX.fill();
+      }
+      MCX.restore();
+    }
+    MCX.globalAlpha=this.alpha;
+    const isMirrorActive = this.isMirror && mirrorPersonIdx===this.i;
+    const drawCol = isMirrorActive ? '#ffffff' : col;
+    const gl=this.glow?col:null;
+    drawStickman(this.x,this.y,s,this.phase,this.runAmt,drawCol,gl);
+    MCX.globalAlpha=1;
+  }
+}
+
+const persons=Array.from({length:100},(_,i)=>new Person(i));
+
+function gpos(col,row){
+  const tw=COLS*CW,th=ROWS*CH;
+  return{x:(mcW-tw)/2+CW/2+col*CW, y:(mcH-th)/2+CH/2+row*CH};
+}
+function shuffle(a){
+  const b=[...a];
+  for(let i=b.length-1;i>0;i--){const j=~~(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}
+  return b;
+}
+function applyOrder(order){
+  ghostPositions = [];
+  order.forEach((pi,ci)=>{
+    const{x,y}=gpos(ci%COLS,~~(ci/COLS));
+    persons[pi].setTarget(x,y);
+    ghostPositions.push({x,y});
+  });
+}
+
+let ghostPositions = [];
+
+// ══════════════════════════════════════════════
+// SCENES
+// ══════════════════════════════════════════════
+const scatterAxes = document.getElementById('scatter-axes');
+
+function resetCommon(){
+  persons.forEach(p=>{p.isSpotlight=false;p.isMirror=false;p.tAlpha=1;p.tsc=1;p.glow=false;});
+  scatterAxes.classList.remove('on');
+}
+
+const SCENES={
+  0(){
+    resetCommon();
+    applyOrder(shuffle([...Array(100).keys()]));
+    persons.forEach(p=>{p.setColor('#2C3E7A');p.isMirror=mirrorPersonIdx===p.i;});
+    showNarrator('Estas son <em>100 personas</em>. Cada figurita es un estudiante universitario de EE.UU. con su propia historia.');
+  },
+  1(){
+    resetCommon();
+    const F=shuffle(DATA.map((_,i)=>i).filter(i=>DATA[i].g==='F'));
+    const M=shuffle(DATA.map((_,i)=>i).filter(i=>DATA[i].g==='M'));
+    applyOrder([...F,...M]);
+    const cm={F:'#f472b6',M:'#60a5fa'};
+    persons.forEach(p=>{p.setColor(cm[p.d.g]||'#2C3E7A');p.isMirror=mirrorPersonIdx===p.i;});
+    const gLabel = mirrorAnswers.q1==='F'?'Estás entre las rosas.':mirrorAnswers.q1==='M'?'Estás entre los azules.':'';
+    showNarrator('Las <em>50 figuras rosas</em> son mujeres. La paridad llegó al aula universitaria de EE.UU. ' + (gLabel||'¿Podés encontrarte?'));
+  },
+  2(){
+    resetCommon();
+    const T=shuffle(DATA.map((_,i)=>i).filter(i=>DATA[i].t));
+    const N=shuffle(DATA.map((_,i)=>i).filter(i=>!DATA[i].t));
+    applyOrder([...T,...N]);
+    persons.forEach(p=>{p.setColor(p.d.t?'#fb923c':'#c4cad4');p.isMirror=mirrorPersonIdx===p.i;});
+    showNarrator('Las <em>34 figuras naranjas</em> trabajan mientras estudian. Cada una carga con una doble jornada.');
+  },
+  3(){
+    resetCommon();
+    const B=shuffle(DATA.map((_,i)=>i).filter(i=>DATA[i].f==='beca'));
+    const F=shuffle(DATA.map((_,i)=>i).filter(i=>DATA[i].f==='familiar'));
+    const P=shuffle(DATA.map((_,i)=>i).filter(i=>DATA[i].f==='propio'));
+    applyOrder([...B,...F,...P]);
+    const cm={beca:'#34d399',familiar:'#60a5fa',propio:'#fbbf24'};
+    persons.forEach(p=>{p.setColor(cm[p.d.f]);p.isMirror=mirrorPersonIdx===p.i;});
+    showNarrator('Las <em>13 verdes</em> llegaron con una beca. La mayoría depende de familia o recursos propios.');
+  },
+  4(){
+    resetCommon();
+    const N=shuffle(DATA.map((_,i)=>i).filter(i=>!DATA[i].c));
+    const Y=shuffle(DATA.map((_,i)=>i).filter(i=>DATA[i].c));
+    applyOrder([...N,...Y]);
+    persons.forEach(p=>{p.setColor(!p.d.c?'#f87171':'#4A90D9');p.glow=false;p.isMirror=mirrorPersonIdx===p.i;});
+    showNarrator('Las <em>8 rojas</em> no tienen internet confiable. En la era digital, es una desventaja invisible.');
+  },
+  5(){
+    resetCommon();
+    // stress low: b>=7 (low stress), mid: b 4-6, high stress: b<=3
+    const Hi=shuffle(DATA.map((_,i)=>i).filter(i=>DATA[i].b<=3));  // high stress → red
+    const Md=shuffle(DATA.map((_,i)=>i).filter(i=>DATA[i].b>=4&&DATA[i].b<=6));
+    const Lo=shuffle(DATA.map((_,i)=>i).filter(i=>DATA[i].b>=7));  // low stress → green
+    applyOrder([...Hi,...Md,...Lo]);
+    persons.forEach(p=>{
+      const col = p.d.b<=3?'#f87171':p.d.b<=6?'#fbbf24':'#4ade80';
+      p.setColor(col);p.glow=false;p.isMirror=mirrorPersonIdx===p.i;
+    });
+    showNarrator('Las <em>rojas de la izquierda</em> tienen estrés alto. Impacta en el rendimiento y la permanencia.');
+  },
+  6(){
+    resetCommon();
+    scatterAxes.classList.add('on');
+    const pad=0.14;
+    const usable=1-2*pad;
+    // Score compuesto: más horas + menos bienestar = más a la derecha-abajo
+    const sorted=[...persons].sort((a,b)=>{
+      const sA=(a.d.hw/40)*0.65+((9-a.d.b)/7)*0.35;
+      const sB=(b.d.hw/40)*0.65+((9-b.d.b)/7)*0.35;
+      return sA-sB;
+    });
+    sorted.forEach((p,i)=>{
+      const t=i/(sorted.length-1);
+      // Diagonal top-left → bottom-right
+      const xBase=t*0.88+0.04;
+      const yBase=t*0.88+0.04;
+      // Jitter perpendicular a la diagonal
+      const j=(((p.i*13+7)%11)-5)/11*0.07;
+      const jx= j;
+      const jy=-j+(((p.i*17+3)%9)-4)/9*0.03;
+      p.setTarget(
+        mcW*(pad+Math.max(0,Math.min(1,xBase+jx))*usable),
+        mcH*(pad+Math.max(0,Math.min(1,yBase+jy))*usable)
+      );
+    });
+    persons.forEach(p=>{
+      const col=p.d.b<=3?'#f87171':p.d.b<=6?'#fbbf24':'#4ade80';
+      p.setColor(col);
+      p.isMirror=mirrorPersonIdx===p.i;
+    });
+    showNarrator('La grilla se rompe. Cada figura vuela a su coordenada real. El patrón es claro: <em>más trabajo = más estrés.</em>');
+  },
+  7(){
+    resetCommon();
+    scatterAxes.classList.remove('on');
+    applyOrder(shuffle([...Array(100).keys()]));
+    persons.forEach(p=>{p.setColor('#2C3E7A');});
+    let best=-1,bsc=-1;
+    DATA.forEach((d,i)=>{
+      let s=0;
+      if(d.g==='F')s+=3;
+      if(!d.t)s+=2;
+      if(d.f==='familiar')s+=2;
+      if(d.b>=7)s+=2;
+      if(d.c)s+=1;
+      if(s>bsc){bsc=s;best=i;}
+    });
+    if(best>=0){
+      persons[best].setTarget(mcW/2,mcH*0.48);
+      persons[best].setColor('#b39dfa');
+      persons[best].glow=true;
+      persons[best].tsc=3.5;
+      persons[best].isSpotlight=true;
+    }
+    showNarrator('21 años, STEM, sin trabajo. La nota más común es <em>B (70.8/100).</em>');
+  },
+  8(){
+    resetCommon();
+    scatterAxes.classList.remove('on');
+    ghostPositions = [];
+    const order = shuffle([...Array(100).keys()]);
+    applyOrder(order);
+    order.forEach((pi,ci)=>{
+      const{x,y}=gpos(ci%COLS,~~(ci/COLS));
+      ghostPositions.push({x,y});
+    });
+    persons.forEach(p=>{p.setColor('#6B7C9A');});
+    setTimeout(()=>{
+      persons.forEach((p)=>{
+        const angle=Math.random()*Math.PI*2;
+        const dist=Math.max(mcW,mcH)*1.5;
+        p.setTarget(mcW/2+Math.cos(angle)*dist, mcH/2+Math.sin(angle)*dist);
+        p.tAlpha=0;
+      });
+    },1500);
+    showNarrator('Los datos quedan. <em>Las personas, no siempre.</em> Cada lugar vacío es una historia que el sistema no terminó de contar.');
+  }
+};
+
+// ══════════════════════════════════════════════
+// NARRATOR
+// ══════════════════════════════════════════════
+const narBubble=document.getElementById('nar-bubble');
+let narTimer;
+function showNarrator(html){
+  clearTimeout(narTimer);
+  narBubble.classList.remove('on');
+  setTimeout(()=>{
+    narBubble.innerHTML=html;
+    narBubble.classList.add('on');
+    narTimer=setTimeout(()=>narBubble.classList.remove('on'),6000);
+  },400);
+}
+
+// ══════════════════════════════════════════════
+// SCENE LABELS & RENDER
+// ══════════════════════════════════════════════
+const LABELS=['El aula','Género','Trabajo','Financiamiento','Conectividad','Estrés','Scatter plot','Perfil promedio','El aula vacía'];
+const stagEl=document.getElementById('stag');
+let stagT, curScene=-1;
+
+function goScene(n){
+  if(curScene===n)return;
+  curScene=n; SCENES[n]();
+  document.querySelectorAll('.pd').forEach((d,i)=>d.classList.toggle('on',i===n));
+  clearTimeout(stagT); stagEl.textContent=LABELS[n]; stagEl.classList.add('on');
+  stagT=setTimeout(()=>stagEl.classList.remove('on'),2500);
+}
+
+// ── Draw chairs background (adapted to light bg) ──
+function drawChairs(opacity){
+  if(!ghostPositions.length) return;
+  const s = CW/28;
+  MCX.save();
+  MCX.globalAlpha = opacity;
+  MCX.strokeStyle='rgba(44,62,122,.35)';
+  MCX.fillStyle='rgba(74,144,217,.08)';
+  MCX.lineWidth=Math.max(1, s*1.2);
+  MCX.lineCap='round'; MCX.lineJoin='round';
+  ghostPositions.forEach(g=>{
+    const x=g.x, y=g.y;
+    const sw=10*s, sh=5*s;
+    const bh=9*s, legH=8*s;
+    MCX.beginPath();MCX.rect(x-sw/2, y-sh, sw, sh);MCX.fill();MCX.stroke();
+    MCX.beginPath();MCX.rect(x-sw/2, y-sh-bh, sw, bh*0.18);MCX.fill();MCX.stroke();
+    MCX.beginPath();MCX.moveTo(x-sw/2+s, y-sh);MCX.lineTo(x-sw/2+s, y-sh-bh);MCX.stroke();
+    MCX.beginPath();MCX.moveTo(x+sw/2-s, y-sh);MCX.lineTo(x+sw/2-s, y-sh-bh);MCX.stroke();
+    MCX.beginPath();MCX.moveTo(x-sw/2+s, y);MCX.lineTo(x-sw/2+s, y+legH);MCX.stroke();
+    MCX.beginPath();MCX.moveTo(x+sw/2-s, y);MCX.lineTo(x+sw/2-s, y+legH);MCX.stroke();
+    MCX.beginPath();MCX.moveTo(x-sw/2+s, y-sh);MCX.lineTo(x-sw/2+s*0.5, y-sh+legH*0.8);MCX.stroke();
+    MCX.beginPath();MCX.moveTo(x+sw/2-s, y-sh);MCX.lineTo(x+sw/2-s*0.5, y-sh+legH*0.8);MCX.stroke();
+  });
+  MCX.globalAlpha=1;
+  MCX.restore();
+}
+
+// ── Render loop ──
+(function loop(){
+  MCX.clearRect(0,0,mcW,mcH);
+  drawChairs(curScene===8 ? 1.0 : 0.22);
+  persons.forEach(p=>{ p.update(); if(!p.isSpotlight) p.draw(); });
+  persons.forEach(p=>{ if(p.isSpotlight) p.draw(); });
+  requestAnimationFrame(loop);
+})();
+
+// ══════════════════════════════════════════════
+// SCROLL TRIGGERS
+// ══════════════════════════════════════════════
+window.addEventListener('load',()=>{
+  persons.forEach(p=>{
+    p.x=(Math.random()-.5)*mcW*1.2+mcW/2;
+    p.y=-150-Math.random()*300;
+    p.sc=0;p.tsc=1;p.vx=(Math.random()-.5)*3;p.vy=1;
+  });
+  goScene(0);
+  for(let n=0;n<=8;n++){
+    const el=document.getElementById(`s${n}`);
+    const panel=document.getElementById(`p${n}`);
+    if(!el||!panel)continue;
+    ScrollTrigger.create({
+      trigger:el,start:'top 60%',end:'bottom 40%',
+      onEnter:()=>{goScene(n);panel.classList.add('on');},
+      onEnterBack:()=>{goScene(n);panel.classList.add('on');},
+      onLeave:()=>panel.classList.remove('on'),
+      onLeaveBack:()=>panel.classList.remove('on'),
+    });
+  }
+});
+
+document.querySelectorAll('.pd').forEach(d=>{
+  d.addEventListener('click',()=>document.getElementById(`s${d.dataset.s}`)?.scrollIntoView({behavior:'smooth'}));
+});
+
+
+</script>
+</body>
+</html>
