@@ -65,26 +65,24 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overf
 .mirror-skip:hover{opacity:1}
 
 /* ── COVER / PORTADA ── */
-#cover{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:5rem 2rem 10rem;position:relative;overflow:hidden;background:linear-gradient(180deg,#ddeeff 0%,#EBF4FF 60%,#fff 100%)}
+/* ── COVER (estática) ── */
+#cover{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5rem 2rem 9rem;position:relative;overflow:hidden;background:linear-gradient(180deg,#ddeeff 0%,#EBF4FF 62%,#fff 100%)}
 #cover::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(74,144,217,.1) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;opacity:.6}
-#cover-walk{position:absolute;bottom:0;left:0;width:100%;height:130px;pointer-events:none}
-.cover-inner{position:relative;z-index:2;max-width:900px;width:90vw}
-.cover-label{font-family:'Syne',sans-serif;font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:var(--accent);opacity:.7;margin-bottom:1.8rem}
-.cover-big-num{font-family:'Syne',sans-serif;font-size:clamp(5rem,16vw,11rem);font-weight:800;color:var(--accent);line-height:.85;letter-spacing:-.05em;margin-bottom:.4rem}
-.cover-title{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:800;color:var(--text);letter-spacing:.05em;line-height:1.2;margin-bottom:1.8rem;text-transform:uppercase}
-.cover-rule{width:48px;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;margin:0 auto 1.6rem}
-.cover-desc{font-size:.9rem;color:var(--muted);line-height:1.85;max-width:460px;margin:0 auto 2.6rem}
-.cover-actions{display:flex;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap}
-.cover-cta{padding:.95rem 2.8rem;background:var(--accent);border:none;border-radius:3px;font-family:'Syne',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fff;cursor:pointer;transition:all .25s}
-.cover-cta:hover{background:#357ABD;transform:translateY(-2px);box-shadow:0 8px 28px rgba(74,144,217,.3)}
-.cover-cta-arrow{display:inline-block;margin-left:.5rem;transition:transform .25s}
-.cover-cta:hover .cover-cta-arrow{transform:translateX(5px)}
-.cover-skip-label{font-size:.72rem;color:var(--muted);letter-spacing:.08em;cursor:pointer;opacity:.45;border-bottom:1px solid rgba(74,85,104,.2);padding-bottom:1px;transition:opacity .2s}
-.cover-skip-label:hover{opacity:.8}
-.cover-scroll-hint{position:absolute;bottom:1.6rem;left:50%;color:rgba(74,144,217,.35);animation:nudge 2.2s ease-in-out infinite}
+#cover-walk{position:absolute;bottom:0;left:0;width:100%;height:120px;z-index:1;pointer-events:none}
+.cv-header{position:relative;z-index:2;max-width:680px;width:90vw;text-align:center}
+.cv-eyebrow{font-family:'Syne',sans-serif;font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:1rem;opacity:.8}
+.cv-main-title{font-family:'Syne',sans-serif;font-size:clamp(1.9rem,4.2vw,3.2rem);font-weight:800;color:var(--text);text-transform:uppercase;letter-spacing:.05em;line-height:1.1;margin-bottom:1.2rem}
+.cv-rule{width:40px;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;margin:0 auto 1.4rem}
+.cv-stats{display:flex;justify-content:center;align-items:center;gap:2rem;margin-bottom:2.4rem}
+.cv-stat{text-align:center}
+.cv-stat-n{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:var(--accent);line-height:1;letter-spacing:-.02em}
+.cv-stat-l{font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-top:3px}
+.cv-stat-sep{width:1px;height:30px;background:rgba(74,144,217,.18)}
+.cover-start{padding:.85rem 2.6rem;background:transparent;border:2px solid var(--accent);border-radius:3px;font-family:'Syne',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);cursor:pointer;transition:all .25s}
+.cover-start:hover{background:var(--accent);color:#fff;transform:translateY(-2px);box-shadow:0 8px 28px rgba(74,144,217,.25)}
+.cover-scroll-hint{position:absolute;bottom:1.4rem;left:50%;color:rgba(74,144,217,.4);animation:nudge 2.2s ease-in-out infinite;z-index:4}
 @keyframes nudge{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
-.eyebrow{font-family:'Syne',sans-serif;font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--text);margin-bottom:1.5rem;position:relative;z-index:3;opacity:.7}
-@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+
 
 /* ── INTRO ── */
 #intro{min-height:70vh;display:flex;align-items:center;justify-content:center;padding:5rem 2rem;background:linear-gradient(180deg,#fff 0%,var(--bg) 100%)}
@@ -107,7 +105,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overf
 .panel-inner{padding:2rem 1.8rem 1.8rem}
 .p-num{font-family:'Syne',sans-serif;font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--panel-accent,var(--accent));margin-bottom:1.4rem;display:flex;align-items:center;gap:.6rem}
 .p-num::after{content:'';flex:1;height:1px;background:var(--panel-accent,var(--accent));opacity:.25}
-.p-big{font-family:'Syne',sans-serif;font-size:4.5rem;font-weight:800;line-height:.85;color:var(--text);margin-bottom:.5rem;letter-spacing:-.05em}
+.p-big{font-family:'Syne',sans-serif;font-size:2.4rem;font-weight:800;line-height:.95;color:var(--text);margin-bottom:.4rem;letter-spacing:-.03em}
 .p-big sub{font-size:1.3rem;vertical-align:middle;font-weight:400;color:var(--muted);letter-spacing:0}
 .p-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.7rem;line-height:1.2}
 .p-text{font-size:.82rem;color:var(--muted);line-height:1.65;margin-bottom:1.3rem}
@@ -129,7 +127,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overf
 /* ── SCATTER AXES ── */
 #scatter-axes{position:fixed;inset:0;pointer-events:none;z-index:2;opacity:0;transition:opacity .8s}
 #scatter-axes.on{opacity:1}
-.ax-label{position:absolute;font-family:'Syne',sans-serif;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(26,26,46,.4)}
+.ax-label{position:absolute;font-family:'Syne',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(26,26,46,.75)}
 
 /* ── SCENE TAG ── */
 #stag{position:fixed;top:1.4rem;left:50%;transform:translateX(-50%);font-family:'Syne',sans-serif;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border:1px solid rgba(74,144,217,.15);padding:.35rem 1rem;border-radius:2rem;opacity:0;transition:opacity .4s;z-index:500;pointer-events:none;white-space:nowrap;box-shadow:0 2px 12px rgba(74,144,217,.1)}
@@ -158,6 +156,62 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overf
 .pf-sub{font-size:.72rem;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.3rem}
 .pf-row{display:flex;justify-content:space-between;align-items:center;font-size:.84rem;padding:.5rem 0;border-bottom:1px solid rgba(74,144,217,.07);color:var(--muted)}
 .pf-row span:last-child{color:var(--text);font-weight:500}
+
+/* ── GAME SECTION ── */
+#game{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem 2rem;background:var(--bg2);position:relative;overflow:hidden}
+.game-inner{max-width:860px;width:100%;position:relative;z-index:1}
+.game-header{text-align:center;margin-bottom:1rem}
+.game-eyebrow{font-family:'Syne',sans-serif;font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:.25rem}
+.game-title{font-family:'Syne',sans-serif;font-size:clamp(1.2rem,2.5vw,1.8rem);font-weight:800;color:var(--text);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.04em}
+.game-sub{font-size:.78rem;color:var(--muted);max-width:420px;margin:0 auto;line-height:1.5}
+.game-card{background:#fff;border-radius:14px;border:1px solid rgba(74,144,217,.1);box-shadow:0 8px 40px rgba(74,144,217,.1),0 2px 6px rgba(0,0,0,.04);overflow:hidden;position:relative;padding:1.5rem 1.8rem}
+.game-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.game-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:2rem;align-items:start}
+@media(max-width:640px){.game-grid{grid-template-columns:1fr}}
+/* Controls */
+.gc-group{margin-bottom:.9rem}
+.gc-label{display:block;font-family:'Syne',sans-serif;font-size:.52rem;color:var(--accent);text-transform:uppercase;letter-spacing:.22em;margin-bottom:.35rem;font-weight:700}
+.gc-btns{display:flex;gap:5px}
+.gc-btns-4{flex-wrap:wrap}
+.gc-btns-4 .gc-btn{flex:1 1 calc(50% - 3px)}
+.gc-btn{flex:1;padding:5px 4px;font-size:.72rem;font-weight:500;font-family:'Inter',sans-serif;border-radius:7px;border:1px solid rgba(74,144,217,.2);background:var(--bg2);color:var(--muted);cursor:pointer;transition:all .15s}
+.gc-btn.active{background:rgba(74,144,217,.1);border-color:var(--accent);color:var(--accent);font-weight:600}
+.gc-slider-row{margin-bottom:.55rem}
+.gc-slider-label{display:flex;justify-content:space-between;font-size:.71rem;color:var(--muted);margin-bottom:3px}
+.gc-slider-label strong{color:var(--text);font-weight:600}
+.gc-slider-row input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer;margin:0}
+.gc-toggle{display:flex;align-items:center;justify-content:space-between;background:var(--bg2);border:1px solid rgba(74,144,217,.15);border-radius:8px;padding:7px 10px;cursor:pointer;margin-bottom:4px;transition:all .2s;user-select:none}
+.gc-toggle.active{background:rgba(74,144,217,.07);border-color:rgba(74,144,217,.45)}
+.gc-tog-text{flex:1}
+.gc-tog-label{font-size:.75rem;font-weight:500;color:var(--text)}
+.gc-tog-sub{font-size:.63rem;color:var(--muted)}
+.gc-tog-dot{width:26px;height:15px;border-radius:8px;background:#c8d8ee;flex-shrink:0;position:relative;transition:background .2s;margin-left:10px}
+.gc-tog-dot::after{content:'';position:absolute;top:2px;left:2px;width:11px;height:11px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.18)}
+.gc-toggle.active .gc-tog-dot{background:var(--accent)}
+.gc-toggle.active .gc-tog-dot::after{transform:translateX(11px)}
+/* Result */
+.gr-card{text-align:center;padding-bottom:.8rem;margin-bottom:.8rem;border-bottom:1px solid rgba(74,144,217,.08)}
+.gr-card svg{max-width:160px;margin:0 auto;display:block}
+.gr-compare{font-size:.68rem;color:var(--muted);margin-top:.2rem}
+.gr-factors{margin-bottom:.5rem}
+.gr-factors-title{font-family:'Syne',sans-serif;font-size:.52rem;text-transform:uppercase;letter-spacing:.2em;color:var(--accent);margin-bottom:.4rem;font-weight:700}
+.gr-factor-row{display:flex;justify-content:space-between;font-size:.72rem;padding:.22rem 0;border-bottom:1px solid rgba(74,144,217,.06);color:var(--muted)}
+.gr-factor-row:last-child{border-bottom:none}
+.gr-factor-row span:last-child{font-weight:600;font-variant-numeric:tabular-nums}
+.gr-pos{color:#1d9e75}.gr-neg{color:#d85a30}
+.gr-note{font-size:.6rem;color:rgba(74,144,217,.45);line-height:1.5;text-align:center}
+
+/* ── FOOTER ── */
+#site-footer{background:#1A1A2E;padding:3.5rem 2rem;text-align:center;position:relative;overflow:hidden}
+#site-footer::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 100%,rgba(74,144,217,.1) 0%,transparent 70%);pointer-events:none}
+.ft-inner{position:relative;z-index:1;max-width:680px;margin:0 auto}
+.ft-label{font-family:'Syne',sans-serif;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(74,144,217,.6);margin-bottom:1.2rem}
+.ft-title{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:.5rem}
+.ft-source{font-size:.82rem;color:rgba(255,255,255,.35);line-height:1.8;margin-bottom:2rem}
+.ft-source a{color:rgba(74,144,217,.7);text-decoration:none;border-bottom:1px solid rgba(74,144,217,.3);transition:color .2s}
+.ft-source a:hover{color:#4A90D9}
+.ft-divider{width:32px;height:1px;background:rgba(255,255,255,.1);margin:0 auto 1.5rem}
+.ft-meta{font-size:.72rem;color:rgba(255,255,255,.18);letter-spacing:.08em;line-height:2}
 
 </style>
 </head>
@@ -226,22 +280,27 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overf
   <div class="ax-label" style="left:3%;top:50%;transform:translateY(-50%) rotate(-90deg)">↑ Bienestar alto</div>
 </div>
 
-<!-- ══ COVER / PORTADA ══ -->
+<!-- ══ COVER (estática) ══ -->
 <section id="cover">
   <canvas id="cover-walk"></canvas>
-  <div class="cover-inner">
-    <h1 class="cover-title">¿Creés que solo estudiar define tu nota?</h1>
-    <div class="cover-rule"></div>
-    <p class="cover-desc">1000 estudiantes universitarios de EE.UU. bajo la lupa. Sueño, trabajo, estrés y dinero: lo que realmente mueve el rendimiento académico.</p>
-    <div class="cover-actions">
-      <button class="cover-cta" id="cover-enter">Entrar al aula <span class="cover-cta-arrow">→</span></button>
-      <span class="cover-skip-label">o scrolleá para explorar</span>
+  <div class="cv-header">
+    <span class="cv-eyebrow">Visualización de datos · EE.UU.</span>
+    <h1 class="cv-main-title">¿Creés que solo estudiar<br>define tu nota?</h1>
+    <div class="cv-rule"></div>
+    <div class="cv-stats">
+      <div class="cv-stat"><div class="cv-stat-n">1.000</div><div class="cv-stat-l">Estudiantes</div></div>
+      <div class="cv-stat-sep"></div>
+      <div class="cv-stat"><div class="cv-stat-n">7</div><div class="cv-stat-l">Variables</div></div>
+      <div class="cv-stat-sep"></div>
+      <div class="cv-stat"><div class="cv-stat-n">100</div><div class="cv-stat-l">Figuritas</div></div>
     </div>
+    <button class="cover-start" id="cover-start">Comencemos <span>↓</span></button>
   </div>
   <div class="cover-scroll-hint">
     <svg width="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
   </div>
 </section>
+
 
 <!-- ══ PART 3: INTRO ══ -->
 <section id="intro">
@@ -370,7 +429,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overf
     <div class="panel L" id="p6" style="--panel-accent:#a3e635">
       <div class="panel-inner">
         <div class="p-num">Escena 06 — Scatter</div>
-        <div class="p-big">−<sub>correlación</sub></div>
+        <div class="p-big" style="font-size:1.6rem;line-height:1.3">Trabajo<br>y Estrés</div>
         <div class="p-title">Más horas de trabajo, más estrés</div>
         <p class="p-text">Cada figurita vuela a su posición real: eje X = horas de trabajo semanales, eje Y = nivel de estrés. El patrón es claro.</p>
       </div>
@@ -404,22 +463,118 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overf
 <!-- ══ PART 5: CLOSING ══ -->
 <section id="closing">
   <h2 class="ct">Cada número es una <em>persona</em>.<br>Cada persona tiene algo que contar.</h2>
-  <p class="ctext">Estas 100 historias son una muestra de 1000 estudiantes universitarios de EE.UU. Los datos revelan patrones invisibles: el estrés silencioso, la presión económica y la brecha digital.</p>
-  <div class="profile">
-    <div class="pf-name">El estudiante más común</div>
-    <div class="pf-sub">Perfil sintético · EE.UU. Dataset</div>
-    <div class="pf-row"><span>Género</span><span>Femenino</span></div>
-    <div class="pf-row"><span>Edad</span><span>21 años</span></div>
-    <div class="pf-row"><span>Major</span><span>STEM</span></div>
-    <div class="pf-row"><span>Zona</span><span>Suburbana</span></div>
-    <div class="pf-row"><span>¿Trabaja?</span><span>No</span></div>
-    <div class="pf-row"><span>Financiamiento</span><span>Familiar</span></div>
-    <div class="pf-row"><span>Internet</span><span>Sí</span></div>
-    <div class="pf-row"><span>Horas de estudio/día</span><span>4.3 hs</span></div>
-    <div class="pf-row"><span>Nota promedio</span><span>B (70.8/100)</span></div>
+  <p class="ctext"> Los datos revelan patrones invisibles: el estrés silencioso, la presión económica y la brecha digital.</p>
+</section>
+
+<!-- ══ PART 6: GAME ══ -->
+<section id="game">
+  <div class="game-inner">
+    <div class="game-header">
+      <p class="game-eyebrow">Simulador</p>
+      <h2 class="game-title">¿Qué nota te sacarías?</h2>
+      <p class="game-sub">Ajustá los factores y descubrí tu puntaje estimado, calibrado con datos reales de 1.000 estudiantes.</p>
+    </div>
+    <div class="game-card">
+    <div class="game-grid">
+
+      <!-- LEFT: Controls -->
+      <div class="game-controls">
+        <div class="gc-group">
+          <label class="gc-label">Género</label>
+          <div class="gc-btns" id="g-gender">
+            <button class="gc-btn active" data-val="F">Mujer</button>
+            <button class="gc-btn" data-val="M">Varón</button>
+          </div>
+        </div>
+
+        <div class="gc-group">
+          <div class="gc-slider-row">
+            <div class="gc-slider-label"><span>Horas de estudio / día</span><strong><span id="lbl-study">4</span>h</strong></div>
+            <input type="range" id="sl-study" min="0" max="15" value="4" step="0.5">
+          </div>
+          <div class="gc-slider-row">
+            <div class="gc-slider-label"><span>Horas de sueño <span id="lbl-sleep-hint">(óptimo 8h)</span></span><strong><span id="lbl-sleep">7</span>h</strong></div>
+            <input type="range" id="sl-sleep" min="4" max="12" value="7" step="0.5">
+          </div>
+          <div class="gc-slider-row">
+            <div class="gc-slider-label"><span>Asistencia a clases</span><strong><span id="lbl-attend">74</span>%</strong></div>
+            <input type="range" id="sl-attend" min="50" max="100" value="74">
+          </div>
+          <div class="gc-slider-row">
+            <div class="gc-slider-label"><span>Nivel de estrés</span><strong><span id="lbl-stress">4</span>/10</strong></div>
+            <input type="range" id="sl-stress" min="1" max="10" value="4">
+          </div>
+        </div>
+
+        <div class="gc-group">
+          <label class="gc-label">Educación de los padres</label>
+          <div class="gc-btns gc-btns-4" id="g-edu">
+            <button class="gc-btn" data-val="0">Secundaria</button>
+            <button class="gc-btn active" data-val="1">Universitario</button>
+            <button class="gc-btn" data-val="2">Maestría</button>
+            <button class="gc-btn" data-val="3">Doctorado</button>
+          </div>
+        </div>
+
+        <div class="gc-group">
+          <div class="gc-toggle" id="tog-scholarship">
+            <div class="gc-tog-text">
+              <div class="gc-tog-label">Beca de estudios</div>
+              <div class="gc-tog-sub">+3.6 pts en promedio</div>
+            </div>
+            <div class="gc-tog-dot"></div>
+          </div>
+          <div class="gc-toggle active" id="tog-internet">
+            <div class="gc-tog-text">
+              <div class="gc-tog-label">Acceso a internet</div>
+              <div class="gc-tog-sub">Sin acceso: −4.9 pts</div>
+            </div>
+            <div class="gc-tog-dot"></div>
+          </div>
+          <div class="gc-toggle" id="tog-job">
+            <div class="gc-tog-text">
+              <div class="gc-tog-label">Trabajo part-time</div>
+              <div class="gc-tog-sub">−6.4 pts en promedio</div>
+            </div>
+            <div class="gc-tog-dot"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Result -->
+      <div>
+        <div class="gr-card">
+          <svg id="score-arc" viewBox="0 0 180 110" aria-hidden="true">
+            <path d="M 20 90 A 70 70 0 0 1 160 90" fill="none" stroke="rgba(74,144,217,.12)" stroke-width="10" stroke-linecap="round"/>
+            <path id="arc-fill" d="" fill="none" stroke="#5ca8f4" stroke-width="10" stroke-linecap="round" style="transition:d .3s,stroke .3s"/>
+            <text id="arc-score" x="90" y="82" text-anchor="middle" font-size="36" font-weight="700" fill="#5ca8f4" font-family="Syne,sans-serif">–</text>
+            <text id="arc-grade" x="90" y="100" text-anchor="middle" font-size="14" font-weight="600" fill="#5ca8f4" font-family="Syne,sans-serif"></text>
+          </svg>
+          <p class="gr-compare">Media del dataset: <strong>70.8</strong> &nbsp;·&nbsp; Nota: <strong id="arc-grade-label">–</strong></p>
+        </div>
+
+        <div class="gr-factors">
+          <div class="gr-factors-title">Desglose de factores</div>
+          <div id="factors-list"></div>
+        </div>
+
+        <p class="gr-note">Modelo de regresión lineal · R² ≈ 0.58 · Predicciones aproximadas.</p>
+      </div>
+
+    </div>
+    </div><!-- end game-card -->
   </div>
 </section>
 
+<footer id="site-footer">
+  <div class="ft-inner">
+    <p class="ft-label">Fuente de datos</p>
+    <p class="ft-title">Student Performance Dataset</p>
+    <p class="ft-source">Dataset de 1.000 estudiantes universitarios de EE.UU.<br>
+    Disponible en <a href="https://www.kaggle.com/datasets/lainguyn123/student-performance-factors" target="_blank" rel="noopener">Kaggle</a> · Licencia de uso académico</p>
+    <div class="ft-divider"></div>
+  </div>
+</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -543,74 +698,111 @@ const DATA = [
 ];
 
 // ══════════════════════════════════════════════
-// COVER — stickmen + CTA
+// COVER — personaje + walkers + burbujas
 // ══════════════════════════════════════════════
 (function(){
-  const cc=document.getElementById('cover-walk');
+  // ── Walkers de fondo ──
+  const cw=document.getElementById('cover-walk');
+  if(cw){
+    const wx=cw.getContext('2d');
+    let wW,wH;
+    function rwz(){wW=cw.width=cw.offsetWidth;wH=cw.height=cw.offsetHeight;}
+    rwz();window.addEventListener('resize',rwz);
+    const pal=['#4A90D9','#b39dfa','#2C3E7A','#60a5fa','#a78bfa','rgba(44,62,122,.4)'];
+    const walkers=Array.from({length:20},(_,i)=>({
+      x:(i/20)*(window.innerWidth*1.9)-window.innerWidth*0.1,
+      speed:.4+Math.random()*.8, phase:Math.random()*Math.PI*2,
+      scale:.45+Math.random()*.35, color:pal[i%pal.length], alpha:.1+Math.random()*.22
+    }));
+    function drawW(x,y,s,ph,col,al){
+      wx.save();wx.globalAlpha=al;wx.translate(x,y);
+      wx.strokeStyle=col;wx.fillStyle=col;wx.lineCap='round';wx.lineWidth=Math.max(1.2,s*1.5);
+      const b=Math.sin(ph*2)*1.5*s;
+      wx.beginPath();wx.arc(0,-24*s+b,4*s,0,Math.PI*2);wx.fill();
+      wx.beginPath();wx.moveTo(0,-20*s+b);wx.lineTo(0,-5*s+b);wx.stroke();
+      wx.beginPath();wx.moveTo(-5*s,-16*s+b);wx.lineTo(5*s,-16*s+b);wx.stroke();
+      const lA=Math.sin(ph)*.8;
+      wx.save();wx.translate(-2.5*s,-5*s+b);wx.rotate(lA);wx.beginPath();wx.moveTo(0,0);wx.lineTo(0,13*s);wx.stroke();wx.restore();
+      wx.save();wx.translate(2.5*s,-5*s+b);wx.rotate(-lA);wx.beginPath();wx.moveTo(0,0);wx.lineTo(0,13*s);wx.stroke();wx.restore();
+      wx.restore();
+    }
+    let wActive=true;
+    new IntersectionObserver(e=>{wActive=e[0].isIntersecting;}).observe(document.getElementById('cover'));
+    (function wloop(){
+      wx.clearRect(0,0,wW,wH);
+      if(wActive) walkers.forEach(w=>{w.x+=w.speed;w.phase+=.09;if(w.x>wW+80)w.x=-70;drawW(w.x,wH-6,w.scale,w.phase,w.color,w.alpha);});
+      requestAnimationFrame(wloop);
+    })();
+  }
+
+  // ── Personaje principal ──
+  const cc=document.getElementById('cover-char');
   if(!cc)return;
   const cx=cc.getContext('2d');
-  let cW,cH;
-  function resize(){cW=cc.width=cc.offsetWidth;cH=cc.height=cc.offsetHeight;}
-  resize();window.addEventListener('resize',resize);
+  const S=2;
+  const CW=200,CH=340;
+  cc.width=CW*S; cc.height=CH*S;
+  cx.scale(S,S);
 
-  function drawCoverStick(x,y,s,phase,color,alpha){
+  function drawHero(x,y,s,ph){
+    cx.clearRect(0,0,CW,CH);
     cx.save();
-    cx.globalAlpha=alpha;
     cx.translate(x,y);
-    cx.strokeStyle=color;cx.fillStyle=color;
-    cx.lineCap='round';cx.lineJoin='round';
-    cx.lineWidth=Math.max(1.4,s*1.6);
-    const bob=Math.sin(phase*2)*2*s;
-    cx.beginPath();cx.arc(0,-24*s+bob,4*s,0,Math.PI*2);cx.fill();
-    cx.beginPath();cx.moveTo(0,-20*s+bob);cx.lineTo(0,-5*s+bob);cx.stroke();
-    cx.beginPath();cx.moveTo(-5*s,-16*s+bob);cx.lineTo(5*s,-16*s+bob);cx.stroke();
-    const lA=Math.sin(phase)*0.85;
-    cx.save();cx.translate(-5*s,-16*s+bob);cx.rotate(lA);
-      cx.beginPath();cx.moveTo(0,0);cx.lineTo(0,11*s);cx.stroke();
-    cx.restore();
-    cx.save();cx.translate(5*s,-16*s+bob);cx.rotate(-lA);
-      cx.beginPath();cx.moveTo(0,0);cx.lineTo(0,11*s);cx.stroke();
-    cx.restore();
-    const lT=Math.sin(phase)*0.75;
-    cx.save();cx.translate(-2.5*s,-5*s+bob);cx.rotate(lT);
-      cx.beginPath();cx.moveTo(0,0);cx.lineTo(0,14*s);cx.stroke();
-    cx.restore();
-    cx.save();cx.translate(2.5*s,-5*s+bob);cx.rotate(-lT);
-      cx.beginPath();cx.moveTo(0,0);cx.lineTo(0,14*s);cx.stroke();
-    cx.restore();
+    const col='#2C3E7A';
+    cx.strokeStyle=col; cx.fillStyle=col;
+    cx.lineCap='round'; cx.lineJoin='round';
+    cx.lineWidth=s*1.8;
+    const b=Math.sin(ph*2)*s*0.8;      // bob
+    const lA=Math.sin(ph)*1.0;          // swing fuerte para que camine visible
+    // cabeza
+    cx.beginPath();cx.arc(0,-24*s+b,4.5*s,0,Math.PI*2);cx.fill();
+    // cuerpo
+    cx.beginPath();cx.moveTo(0,-19.5*s+b);cx.lineTo(0,-5*s+b);cx.stroke();
+    // brazo izq (opuesto a pierna izq)
+    cx.save();cx.translate(0,-17*s+b);cx.rotate(lA*0.9);
+    cx.beginPath();cx.moveTo(0,0);cx.lineTo(-6*s,8*s);cx.stroke();cx.restore();
+    // brazo der
+    cx.save();cx.translate(0,-17*s+b);cx.rotate(-lA*0.9);
+    cx.beginPath();cx.moveTo(0,0);cx.lineTo(6*s,8*s);cx.stroke();cx.restore();
+    // pierna izq
+    cx.save();cx.translate(-2*s,-5*s+b);cx.rotate(-lA);
+    cx.beginPath();cx.moveTo(0,0);cx.lineTo(0,16*s);cx.stroke();cx.restore();
+    // pierna der
+    cx.save();cx.translate(2*s,-5*s+b);cx.rotate(lA);
+    cx.beginPath();cx.moveTo(0,0);cx.lineTo(0,16*s);cx.stroke();cx.restore();
+    // mochila
+    cx.save();cx.translate(-6.5*s,-20*s+b);
+    cx.strokeRect(0,0,5*s,11*s);cx.restore();
     cx.restore();
   }
 
-  const palette=['#4A90D9','#b39dfa','#2C3E7A','#60a5fa','#a78bfa','rgba(44,62,122,.4)'];
-  const walkers=Array.from({length:18},(_,i)=>({
-    x:(i/18)*(window.innerWidth*1.8)-window.innerWidth*0.1,
-    speed:0.45+Math.random()*0.9,
-    phase:Math.random()*Math.PI*2,
-    scale:0.5+Math.random()*0.4,
-    color:palette[i%palette.length],
-    alpha:0.12+Math.random()*0.28
-  }));
-
-  let coverActive=true;
-  new IntersectionObserver(e=>{coverActive=e[0].isIntersecting;}).observe(document.getElementById('cover'));
-
-  (function loop(){
-    cx.clearRect(0,0,cW,cH);
-    if(coverActive){
-      walkers.forEach(w=>{
-        w.x+=w.speed; w.phase+=0.1;
-        if(w.x>cW+100) w.x=-80;
-        drawCoverStick(w.x,cH-8,w.scale,w.phase,w.color,w.alpha);
-      });
-    }
-    requestAnimationFrame(loop);
+  let phase=0,heroActive=true;
+  new IntersectionObserver(e=>{heroActive=e[0].isIntersecting;},{threshold:0}).observe(document.getElementById('char-intro'));
+  (function hloop(){
+    if(heroActive){phase+=.07;drawHero(CW/2,CH-30,4,phase);}
+    requestAnimationFrame(hloop);
   })();
+
+  // ── Burbujas via ScrollTrigger ──
+  const bubbles=document.querySelectorAll('#char-intro .cv-bubble');
+  const steps=document.querySelectorAll('#char-intro .cv-step');
+
+  function showBubble(i){
+    bubbles.forEach((b,j)=>b.classList.toggle('on',j===i));
+  }
+
+  steps.forEach((step,i)=>{
+    ScrollTrigger.create({
+      trigger:step, start:'top 50%',
+      onEnter:      ()=>showBubble(i),
+      onEnterBack:  ()=>showBubble(i),
+      onLeaveBack:  ()=>{ if(i===0) bubbles.forEach(b=>b.classList.remove('on')); else showBubble(i-1); }
+    });
+  });
 })();
 
-document.getElementById('cover-enter').addEventListener('click',()=>{
-  const ms=document.getElementById('mirror-screen');
-  ms.style.display='flex';
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{ ms.style.opacity='1'; }));
+document.getElementById('cover-start').addEventListener('click',()=>{
+  document.getElementById('intro').scrollIntoView({behavior:'smooth'});
 });
 
 // ══════════════════════════════════════════════
@@ -921,20 +1113,17 @@ const SCENES={
     });
     sorted.forEach((p,i)=>{
       const t=i/(sorted.length-1);
-      // Diagonal top-left → bottom-right
       const xBase=t*0.88+0.04;
       const yBase=t*0.88+0.04;
-      // Jitter perpendicular a la diagonal
       const j=(((p.i*13+7)%11)-5)/11*0.07;
-      const jx= j;
+      const jx=j;
       const jy=-j+(((p.i*17+3)%9)-4)/9*0.03;
       p.setTarget(
         mcW*(pad+Math.max(0,Math.min(1,xBase+jx))*usable),
         mcH*(pad+Math.max(0,Math.min(1,yBase+jy))*usable)
       );
-    });
-    persons.forEach(p=>{
-      const col=p.d.b<=3?'#f87171':p.d.b<=6?'#fbbf24':'#4ade80';
+      const yFinal=Math.max(0,Math.min(1,yBase+jy));
+      const col=yFinal<0.38?'#4ade80':yFinal<0.65?'#fbbf24':'#f87171';
       p.setColor(col);
       p.isMirror=mirrorPersonIdx===p.i;
     });
@@ -1062,7 +1251,12 @@ window.addEventListener('load',()=>{
     p.y=-150-Math.random()*300;
     p.sc=0;p.tsc=1;p.vx=(Math.random()-.5)*3;p.vy=1;
   });
-  goScene(0);
+  // Initialize scene 0 without showing narrator (user isn't in canvas yet)
+  resetCommon();
+  applyOrder(shuffle([...Array(100).keys()]));
+  persons.forEach(p=>{p.setColor('#2C3E7A');p.isMirror=mirrorPersonIdx===p.i;});
+  curScene=0;
+  document.querySelectorAll('.pd').forEach((d,i)=>d.classList.toggle('on',i===0));
   for(let n=0;n<=8;n++){
     const el=document.getElementById(`s${n}`);
     const panel=document.getElementById(`p${n}`);
@@ -1081,6 +1275,89 @@ document.querySelectorAll('.pd').forEach(d=>{
   d.addEventListener('click',()=>document.getElementById(`s${d.dataset.s}`)?.scrollIntoView({behavior:'smooth'}));
 });
 
+// ══════════════════════════════════════════════
+// STUDENT BUILDER GAME
+// ══════════════════════════════════════════════
+(function(){
+  const EDU_BONUS=[0,3.14,7.14,10.16];
+  const SLEEP_PEAK=8;
+  let st={gender:'F',studyHours:4,sleepHours:7,attendance:74,stress:4,scholarship:false,internet:true,partTimeJob:false,parentEdu:1};
+
+  function scoreColor(s){if(s>=80)return'#3266ad';if(s>=65)return'#5ca8f4';if(s>=52)return'#f0a030';if(s>=40)return'#d85a30';return'#a32d2d';}
+  function getGrade(s){if(s>=80)return'A';if(s>=65)return'B';if(s>=52)return'C';if(s>=40)return'D';return'F';}
+
+  function calc(){
+    const se=-0.55*Math.pow(st.sleepHours-SLEEP_PEAK,2);
+    const raw=56.0+(st.gender==='M'?.6:0)+(st.scholarship?3.56:0)+(st.internet?4.93:0)-(st.partTimeJob?6.37:0)+EDU_BONUS[st.parentEdu]+2.68*st.studyHours+se+0.17*st.attendance-1.45*st.stress;
+    return Math.max(0,Math.min(100,Math.round(raw*10)/10));
+  }
+
+  function render(){
+    const score=calc();
+    const col=scoreColor(score);
+    const grade=getGrade(score);
+    // Arc
+    const cx=90,cy=90,r=70,pct=score/100;
+    const ea=Math.PI+pct*Math.PI;
+    const x2=cx+r*Math.cos(ea),y2=cy+r*Math.sin(ea);
+    const arcFill=document.getElementById('arc-fill');
+    if(score>0) arcFill.setAttribute('d',`M 20 90 A ${r} ${r} 0 ${pct>.5?1:0} 1 ${x2.toFixed(2)} ${y2.toFixed(2)}`);
+    else arcFill.setAttribute('d','');
+    arcFill.setAttribute('stroke',col);
+    const arcS=document.getElementById('arc-score');
+    arcS.textContent=score.toFixed(1); arcS.setAttribute('fill',col);
+    const arcG=document.getElementById('arc-grade');
+    arcG.textContent=grade; arcG.setAttribute('fill',col);
+    document.getElementById('arc-grade-label').textContent=grade;
+    document.getElementById('arc-grade-label').style.color=col;
+    // Factors
+    const se=-0.55*Math.pow(st.sleepHours-SLEEP_PEAK,2);
+    const sleepDelta=st.sleepHours-SLEEP_PEAK;
+    const sleepHint=sleepDelta===0?'óptimo':sleepDelta<0?`déficit ${sleepDelta}h`:`exceso +${sleepDelta}h`;
+    const factors=[
+      {label:'Horas de estudio',v:+(2.68*st.studyHours).toFixed(1)},
+      {label:`Sueño (${sleepHint})`,v:+se.toFixed(1)},
+      {label:'Asistencia',v:+(0.17*st.attendance).toFixed(1)},
+      {label:'Estrés',v:+(-1.45*st.stress).toFixed(1)},
+      {label:'Educación padres',v:+EDU_BONUS[st.parentEdu].toFixed(1)},
+    ];
+    if(st.scholarship)factors.push({label:'Beca',v:3.56});
+    if(!st.internet)factors.push({label:'Sin internet',v:-4.93});
+    if(st.partTimeJob)factors.push({label:'Trabajo part-time',v:-6.37});
+    factors.sort((a,b)=>b.v-a.v);
+    document.getElementById('factors-list').innerHTML=factors.map(f=>`
+      <div class="gr-factor-row">
+        <span>${f.label}</span>
+        <span class="${f.v>0?'gr-pos':f.v<0?'gr-neg':''}">${f.v>0?'+':''}${f.v}</span>
+      </div>`).join('');
+  }
+
+  // Gender
+  document.querySelectorAll('#g-gender .gc-btn').forEach(b=>{
+    b.addEventListener('click',()=>{st.gender=b.dataset.val;document.querySelectorAll('#g-gender .gc-btn').forEach(x=>x.classList.toggle('active',x===b));render();});
+  });
+  // Edu
+  document.querySelectorAll('#g-edu .gc-btn').forEach(b=>{
+    b.addEventListener('click',()=>{st.parentEdu=+b.dataset.val;document.querySelectorAll('#g-edu .gc-btn').forEach(x=>x.classList.toggle('active',x===b));render();});
+  });
+  // Sliders
+  [['sl-study','lbl-study','studyHours'],['sl-sleep','lbl-sleep','sleepHours'],['sl-attend','lbl-attend','attendance'],['sl-stress','lbl-stress','stress']].forEach(([id,lbl,key])=>{
+    const el=document.getElementById(id);
+    el.addEventListener('input',()=>{st[key]=parseFloat(el.value);document.getElementById(lbl).textContent=el.value;render();});
+  });
+  // Sleep hint label
+  document.getElementById('sl-sleep').addEventListener('input',function(){
+    const d=+this.value-SLEEP_PEAK;
+    document.getElementById('lbl-sleep-hint').textContent=d===0?'(óptimo 8h)':d<0?`(déficit ${d}h)`:`(exceso +${d}h)`;
+  });
+  // Toggles
+  [['tog-scholarship','scholarship',false],['tog-internet','internet',true],['tog-job','partTimeJob',false]].forEach(([id,key,init])=>{
+    st[key]=init;
+    document.getElementById(id).addEventListener('click',function(){st[key]=!st[key];this.classList.toggle('active',st[key]);render();});
+  });
+
+  render();
+})();
 
 </script>
 </body>
