@@ -213,6 +213,74 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overf
 .ft-divider{width:32px;height:1px;background:rgba(255,255,255,.1);margin:0 auto 1.5rem}
 .ft-meta{font-size:.72rem;color:rgba(255,255,255,.18);letter-spacing:.08em;line-height:2}
 
+/* ═══════════════════════════════════════════════════════
+   NEW: "FACTORES DEL APRENDIZAJE" — sección previa a la grilla
+   Prefijo nf- para no colisionar con nada existente.
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Lead-in (misma familia que #intro) ── */
+#nf-lead{min-height:62vh;display:flex;align-items:center;justify-content:center;padding:5rem 2rem;background:linear-gradient(180deg,var(--bg) 0%,#fff 100%)}
+.nf-lead-box{max-width:600px;text-align:center;opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s cubic-bezier(.16,1,.3,1)}
+.nf-lead-box.on{opacity:1;transform:translateY(0)}
+.nf-lead-box .ibar{width:40px;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));margin:1.5rem auto;border-radius:2px}
+.nf-lead-box h2{font-family:'Syne',sans-serif;font-size:clamp(1.5rem,3vw,2.4rem);font-weight:800;line-height:1.2;margin-bottom:1.3rem;color:var(--text)}
+.nf-lead-box h2 em{color:var(--accent);font-style:normal}
+.nf-lead-box p{font-size:1rem;color:var(--muted);line-height:1.75}
+
+/* ── Sticky pinned stage ── */
+#nf-wrap{position:relative}
+#nf-sticky{position:sticky;top:0;height:100vh;overflow:hidden;background:linear-gradient(180deg,#F0F6FF 0%,#F5F8FF 100%)}
+.nf-ss{position:relative;z-index:5;pointer-events:none}
+
+#nf-stagelabel{position:fixed;top:1.4rem;left:50%;transform:translateX(-50%);font-family:'Syne',sans-serif;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border:1px solid rgba(74,144,217,.15);padding:.35rem 1rem;border-radius:2rem;opacity:0;transition:opacity .4s;z-index:500;pointer-events:none;white-space:nowrap;box-shadow:0 2px 12px rgba(74,144,217,.1)}
+#nf-stagelabel.on{opacity:1}
+
+canvas#mc2{position:absolute;inset:0;display:block;opacity:0;transition:opacity .7s ease}
+canvas#mc2.on{opacity:1}
+
+/* ── Cards layer (3 tarjetas cognitivas) ── */
+#nf-cards{position:absolute;inset:0;display:flex;gap:1.4rem;align-items:center;justify-content:center;flex-wrap:wrap;padding:2rem;opacity:0;transition:opacity .6s ease;pointer-events:none}
+#nf-cards.on{opacity:1}
+.nf-card{width:220px;background:#fff;border-radius:14px;box-shadow:0 8px 40px rgba(74,144,217,.12),0 2px 8px rgba(0,0,0,.06);padding:1.7rem 1.4rem;text-align:center;opacity:0;transform:translateY(28px) scale(.94);transition:opacity .6s ease,transform .6s cubic-bezier(.34,1.56,.64,1);position:relative;overflow:hidden}
+.nf-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent)}
+.nf-card.on{opacity:1;transform:translateY(0) scale(1)}
+.nf-card-icon{font-size:1.9rem;margin-bottom:.7rem;display:block}
+.nf-card-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1.02rem;color:var(--text);margin-bottom:.55rem}
+.nf-card-text{font-size:.8rem;color:var(--muted);line-height:1.55}
+
+/* ── Mindmap layer (nodos de factores) ── */
+#nf-mindmap{position:absolute;inset:0;opacity:0;transition:opacity .6s ease;pointer-events:none}
+#nf-mindmap.on{opacity:1}
+.nf-node{position:absolute;left:50%;top:50%;width:152px;min-height:70px;border-radius:20px;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;font-family:'Syne',sans-serif;font-weight:700;font-size:.8rem;line-height:1.28;padding:.6rem .85rem;box-shadow:0 10px 30px rgba(26,26,46,.16),0 2px 8px rgba(0,0,0,.08);opacity:0;visibility:hidden}
+.nf-node.nf-node-sub{width:138px;min-height:60px;font-size:.74rem}
+.nf-node-cog{background:#4A90D9}
+.nf-node-socio{background:#b39dfa}
+.nf-node-fis{background:#34d399}
+.nf-node-ent{background:#f0a030}
+
+/* ── Text-frame layer (frames de texto completos) ── */
+#nf-textframe{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:2rem;opacity:0;transition:opacity .6s ease;pointer-events:none;text-align:center}
+#nf-textframe.on{opacity:1}
+.nf-tf-inner{max-width:580px}
+.nf-tf-eyebrow{font-family:'Syne',sans-serif;font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--accent);margin-bottom:.9rem;display:block}
+.nf-tf-inner p{font-family:'Syne',sans-serif;font-size:clamp(1.1rem,2.6vw,1.6rem);font-weight:700;line-height:1.42;color:var(--text)}
+.nf-tf-inner p em{color:var(--accent);font-style:normal}
+.nf-tf-inner p.nf-tf-small{font-family:'Inter',sans-serif;font-size:.92rem;font-weight:400;color:var(--muted);line-height:1.7;margin-top:.9rem}
+
+/* ── Panel reutilizado (misma clase .panel del proyecto) contenedor ── */
+#nf-panel-layer{position:absolute;inset:0;opacity:0;transition:opacity .6s ease;pointer-events:none}
+#nf-panel-layer.on{opacity:1}
+
+/* ── Bar rows con score (para sueño) ── */
+.p-bar-row-score{display:flex;align-items:center;gap:.5rem}
+.p-bar-score{font-family:'Syne',sans-serif;font-size:.66rem;color:var(--text);opacity:.55;min-width:30px;text-align:right}
+
+@media(max-width:640px){
+  .nf-card{width:82vw}
+  .nf-node{width:118px;min-height:58px;font-size:.7rem}
+  .nf-node.nf-node-sub{width:108px;min-height:52px;font-size:.65rem}
+}
+
 </style>
 </head>
 <body>
@@ -310,6 +378,96 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overf
     <p>Este proyecto convierte 100 perfiles representativos en 100 figuritas animadas. A medida que scrolleás, se reorganizan y cambian de color para revelar los patrones del aula universitaria estadounidense.</p>
   </div>
 </section>
+
+<!-- ══ PART 3.5: FACTORES DEL APRENDIZAJE (nuevo) ══ -->
+<section id="nf-lead">
+  <div class="nf-lead-box">
+    <h2>¿Por qué dos estudiantes con las <em>mismas horas de estudio</em> sacan notas distintas?</h2>
+    <div class="ibar"></div>
+    <p>Estudiar es solo una parte de la ecuación. Antes de mirar los datos, repasemos los factores cognitivos que hacen posible aprender.</p>
+  </div>
+</section>
+
+<div id="nf-wrap">
+  <div id="nf-sticky">
+
+    <canvas id="mc2"></canvas>
+
+    <!-- Panel reutilizado (misma .panel del resto del proyecto) -->
+    <div id="nf-panel-layer">
+      <div class="panel L" id="nf-panel" style="--panel-accent:#4A90D9"><div class="panel-inner" id="nf-panel-inner"></div></div>
+    </div>
+
+    <!-- 3 tarjetas cognitivas -->
+    <div id="nf-cards">
+      <div class="nf-card" id="nf-card-1">
+        <span class="nf-card-icon">🧠</span>
+        <div class="nf-card-title">Memoria</div>
+        <div class="nf-card-text">La capacidad de retener y recuperar información es la base sobre la que se construye todo aprendizaje nuevo.</div>
+      </div>
+      <div class="nf-card" id="nf-card-2">
+        <span class="nf-card-icon">🎯</span>
+        <div class="nf-card-title">Atención y concentración</div>
+        <div class="nf-card-text">Sin atención sostenida, la información nueva nunca llega a consolidarse como conocimiento duradero.</div>
+      </div>
+      <div class="nf-card" id="nf-card-3">
+        <span class="nf-card-icon">⚡</span>
+        <div class="nf-card-title">Velocidad de procesamiento</div>
+        <div class="nf-card-text">La rapidez con la que el cerebro conecta ideas nuevas influye en cuánto se puede aprender en el mismo tiempo.</div>
+      </div>
+    </div>
+
+    <!-- Mapa de nodos -->
+    <div id="nf-mindmap">
+      <div class="nf-node nf-node-cog"   id="node-cog">Cognitivos y<br>mentales</div>
+      <div class="nf-node nf-node-socio" id="node-socio">Socioafectivos y<br>emocionales</div>
+      <div class="nf-node nf-node-fis"   id="node-fis">Físicos y<br>biológicos</div>
+      <div class="nf-node nf-node-ent"   id="node-ent">Entorno y<br>pedagogía</div>
+
+      <div class="nf-node nf-node-sub nf-node-socio" id="node-motiv">Motivación</div>
+      <div class="nf-node nf-node-sub nf-node-socio" id="node-mind">Mentalidad y<br>autoeficacia</div>
+      <div class="nf-node nf-node-sub nf-node-socio" id="node-stress">Gestión del estrés<br>y la ansiedad</div>
+    </div>
+
+    <!-- Frames de texto -->
+    <div id="nf-textframe"><div class="nf-tf-inner" id="nf-tf-inner"></div></div>
+
+  </div><!-- end #nf-sticky -->
+
+  <!-- Spaciadores de scroll — cada uno dispara un paso del guion -->
+  <div class="nf-ss" data-nf="1"  style="height:110vh"></div>
+  <div class="nf-ss" data-nf="2"  style="height:110vh"></div>
+  <div class="nf-ss" data-nf="3"  style="height:120vh"></div>
+  <div class="nf-ss" data-nf="4"  style="height:110vh"></div>
+  <div class="nf-ss" data-nf="5"  style="height:140vh"></div>
+  <div class="nf-ss" data-nf="6"  style="height:140vh"></div>
+  <div class="nf-ss" data-nf="7"  style="height:120vh"></div>
+  <div class="nf-ss" data-nf="8"  style="height:110vh"></div>
+  <div class="nf-ss" data-nf="9"  style="height:110vh"></div>
+  <div class="nf-ss" data-nf="10" style="height:150vh"></div>
+  <div class="nf-ss" data-nf="11" style="height:150vh"></div>
+  <div class="nf-ss" data-nf="12" style="height:120vh"></div>
+  <div class="nf-ss" data-nf="13" style="height:120vh"></div>
+  <div class="nf-ss" data-nf="14" style="height:110vh"></div>
+  <div class="nf-ss" data-nf="15" style="height:150vh"></div>
+  <div class="nf-ss" data-nf="16" style="height:110vh"></div>
+  <div class="nf-ss" data-nf="17" style="height:120vh"></div>
+  <div class="nf-ss" data-nf="18" style="height:120vh"></div>
+  <div class="nf-ss" data-nf="19" style="height:110vh"></div>
+  <div class="nf-ss" data-nf="20" style="height:110vh"></div>
+  <div class="nf-ss" data-nf="21" style="height:150vh"></div>
+  <div class="nf-ss" data-nf="22" style="height:110vh"></div>
+  <div class="nf-ss" data-nf="23" style="height:150vh"></div>
+  <div class="nf-ss" data-nf="24" style="height:110vh"></div>
+  <div class="nf-ss" data-nf="25" style="height:150vh"></div>
+  <div class="nf-ss" data-nf="26" style="height:110vh"></div>
+  <div class="nf-ss" data-nf="27" style="height:150vh"></div>
+  <div class="nf-ss" data-nf="28" style="height:140vh"></div>
+  <div class="nf-ss" data-nf="29" style="height:140vh"></div>
+
+</div><!-- end #nf-wrap -->
+
+<div id="nf-stagelabel"></div>
 
 <!-- ══ PART 4: CANVAS SECTION ══ -->
 <div id="wrap">
@@ -712,7 +870,7 @@ const DATA = [
     const walkers=Array.from({length:20},(_,i)=>({
       x:(i/20)*(window.innerWidth*1.9)-window.innerWidth*0.1,
       speed:.4+Math.random()*.8, phase:Math.random()*Math.PI*2,
-      scale:.45+Math.random()*.35, color:pal[i%pal.length], alpha:.1+Math.random()*.22
+      scale:.78+Math.random()*.55, color:pal[i%pal.length], alpha:.13+Math.random()*.24
     }));
     function drawW(x,y,s,ph,col,al){
       wx.save();wx.globalAlpha=al;wx.translate(x,y);
@@ -1359,6 +1517,397 @@ document.querySelectorAll('.pd').forEach(d=>{
   render();
 })();
 
+</script>
+
+<!-- ══════════════════════════════════════════════════════════
+     NUEVO: motor de la sección "Factores del aprendizaje"
+     Reutiliza DATA / shuffle / hexRgb / lerpCol del script anterior.
+     ══════════════════════════════════════════════════════════ -->
+<script>
+(function(){
+
+if(!document.getElementById('nf-wrap')) return;
+
+// ── reveal del lead-in (mismo efecto de aparición que los .panel) ──
+(function(){
+  const box=document.querySelector('.nf-lead-box');
+  if(!box) return;
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting) box.classList.add('on'); });
+  },{threshold:0.3});
+  io.observe(box);
+})();
+
+// ── canvas propio (misma técnica de dibujo que el canvas principal) ──
+const MC2 = document.getElementById('mc2');
+const MCX2 = MC2.getContext('2d');
+const COLS2 = 20, ROWS2 = 5;
+let mc2W, mc2H, CW2, CH2;
+function mc2Resize(){
+  const st = document.getElementById('nf-sticky');
+  mc2W = MC2.width = st.offsetWidth;
+  mc2H = MC2.height = st.offsetHeight;
+  CW2 = Math.min(mc2W*0.68/COLS2, 34); CH2 = CW2*1.65;
+}
+mc2Resize();
+window.addEventListener('resize', mc2Resize);
+
+function drawStickman2(ctx,x,y,s,phase,runAmt,color){
+  ctx.save(); ctx.translate(x,y);
+  ctx.strokeStyle=color; ctx.fillStyle=color;
+  ctx.lineCap='round'; ctx.lineJoin='round';
+  ctx.lineWidth=Math.max(2.2,s*1.8);
+  const bob=Math.sin(phase*2)*3.5*s*runAmt;
+  ctx.beginPath();ctx.arc(0,-26*s+bob,4.5*s,0,Math.PI*2);ctx.fill();
+  ctx.beginPath();ctx.moveTo(0,-21.5*s+bob);ctx.lineTo(0,-18*s+bob);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(0,-18*s+bob);ctx.lineTo(0,-5*s+bob);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(-4.5*s,-17*s+bob);ctx.lineTo(4.5*s,-17*s+bob);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(-3*s,-5*s+bob);ctx.lineTo(3*s,-5*s+bob);ctx.stroke();
+  const lA=Math.sin(phase)*0.96*runAmt;
+  ctx.save();ctx.translate(-4.5*s,-17*s+bob);ctx.rotate(lA);
+    ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,7*s);ctx.stroke();
+    ctx.save();ctx.translate(0,7*s);ctx.rotate(-Math.max(0,Math.sin(phase))*1.3*runAmt);
+      ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,6*s);ctx.stroke();
+    ctx.restore();
+  ctx.restore();
+  const rA=-Math.sin(phase)*0.96*runAmt;
+  ctx.save();ctx.translate(4.5*s,-17*s+bob);ctx.rotate(rA);
+    ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,7*s);ctx.stroke();
+    ctx.save();ctx.translate(0,7*s);ctx.rotate(Math.max(0,-Math.sin(phase))*1.3*runAmt);
+      ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,6*s);ctx.stroke();
+    ctx.restore();
+  ctx.restore();
+  const lT=Math.sin(phase)*0.85*runAmt;
+  ctx.save();ctx.translate(-3*s,-5*s+bob);ctx.rotate(lT);
+    ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,9*s);ctx.stroke();
+    ctx.save();ctx.translate(0,9*s);ctx.rotate(Math.max(0,Math.sin(phase))*1.6*runAmt);
+      ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,8*s);ctx.stroke();
+      ctx.save();ctx.translate(0,8*s);
+        ctx.beginPath();ctx.moveTo(-1*s,0);ctx.lineTo(3.5*s,0);ctx.stroke();
+      ctx.restore();
+    ctx.restore();
+  ctx.restore();
+  const rT=-Math.sin(phase)*0.85*runAmt;
+  ctx.save();ctx.translate(3*s,-5*s+bob);ctx.rotate(rT);
+    ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,9*s);ctx.stroke();
+    ctx.save();ctx.translate(0,9*s);ctx.rotate(-Math.max(0,-Math.sin(phase))*1.6*runAmt);
+      ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,8*s);ctx.stroke();
+      ctx.save();ctx.translate(0,8*s);
+        ctx.beginPath();ctx.moveTo(-1*s,0);ctx.lineTo(3.5*s,0);ctx.stroke();
+      ctx.restore();
+    ctx.restore();
+  ctx.restore();
+  ctx.restore();
+}
+
+function drawChairs2(ctx,cw,opacity,ghosts){
+  if(!ghosts.length) return;
+  const s=cw/28;
+  ctx.save(); ctx.globalAlpha=opacity;
+  ctx.strokeStyle='rgba(44,62,122,.35)'; ctx.fillStyle='rgba(74,144,217,.08)';
+  ctx.lineWidth=Math.max(1,s*1.2); ctx.lineCap='round'; ctx.lineJoin='round';
+  ghosts.forEach(g=>{
+    const x=g.x,y=g.y, sw=10*s, sh=5*s, bh=9*s, legH=8*s;
+    ctx.beginPath();ctx.rect(x-sw/2,y-sh,sw,sh);ctx.fill();ctx.stroke();
+    ctx.beginPath();ctx.rect(x-sw/2,y-sh-bh,sw,bh*0.18);ctx.fill();ctx.stroke();
+    ctx.beginPath();ctx.moveTo(x-sw/2+s,y-sh);ctx.lineTo(x-sw/2+s,y-sh-bh);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(x+sw/2-s,y-sh);ctx.lineTo(x+sw/2-s,y-sh-bh);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(x-sw/2+s,y);ctx.lineTo(x-sw/2+s,y+legH);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(x+sw/2-s,y);ctx.lineTo(x+sw/2-s,y+legH);ctx.stroke();
+  });
+  ctx.restore();
+}
+
+// ── clase persona liviana (misma física que el motor original) ──
+class Person2{
+  constructor(i){
+    this.i=i; this.d=DATA[i];
+    this.x=Math.random()*Math.max(mc2W,800); this.y=-200-Math.random()*400;
+    this.tx=mc2W/2; this.ty=mc2H/2;
+    this.vx=0; this.vy=0;
+    this.colA='#2C3E7A'; this.colB='#2C3E7A'; this.colT=1;
+    this.phase=Math.random()*Math.PI*2;
+    this.moving=false; this.trunAmt=0; this.runAmt=0;
+    this.sc=0; this.tsc=1;
+  }
+  setTarget(tx,ty){ this.tx=tx; this.ty=ty; this.moving=true; this.trunAmt=1; }
+  setColor(c){ this.colA=lerpCol(this.colA,this.colB,this.colT); this.colB=c; this.colT=0; }
+  update(){
+    const dx=this.tx-this.x, dy=this.ty-this.y, dist=Math.hypot(dx,dy);
+    if(dist<1.5){ this.x=this.tx; this.y=this.ty; this.vx=0; this.vy=0; this.moving=false; this.trunAmt=0; }
+    else { const k=0.018,damp=0.88; this.vx=(this.vx+dx*k)*damp; this.vy=(this.vy+dy*k)*damp; this.x+=this.vx; this.y+=this.vy; this.trunAmt=1; }
+    if(this.moving) this.phase+=0.22;
+    this.runAmt+=(this.trunAmt-this.runAmt)*0.15;
+    if(this.colT<1) this.colT=Math.min(1,this.colT+0.04);
+    this.sc+=(this.tsc-this.sc)*0.1;
+  }
+  draw(ctx,cw){
+    const s=this.sc*cw/28;
+    if(s<0.05) return;
+    drawStickman2(ctx,this.x,this.y,s,this.phase,this.runAmt,lerpCol(this.colA,this.colB,this.colT));
+  }
+}
+const persons2 = Array.from({length:100},(_,i)=>new Person2(i));
+let ghostPositions2=[];
+function gpos2(col,row){
+  const tw=COLS2*CW2, th=ROWS2*CH2;
+  return{x:(mc2W-tw)/2+CW2/2+col*CW2, y:(mc2H-th)/2+CH2/2+row*CH2};
+}
+function applyOrder2(order){
+  ghostPositions2=[];
+  order.forEach((pi,ci)=>{
+    const{x,y}=gpos2(ci%COLS2,~~(ci/COLS2));
+    persons2[pi].setTarget(x,y);
+    ghostPositions2.push({x,y});
+  });
+}
+(function nfLoop(){
+  if(mc2W){
+    MCX2.clearRect(0,0,mc2W,mc2H);
+    drawChairs2(MCX2,CW2,0.22,ghostPositions2);
+    persons2.forEach(p=>{p.update();p.draw(MCX2,CW2);});
+  }
+  requestAnimationFrame(nfLoop);
+})();
+
+function hslToHex(h,s,l){
+  s/=100; l/=100;
+  const k=n=>(n+h/30)%12;
+  const a=s*Math.min(l,1-l);
+  const f=n=>l-a*Math.max(-1,Math.min(k(n)-3,Math.min(9-k(n),1)));
+  const toHex=x=>Math.round(255*x).toString(16).padStart(2,'0');
+  return `#${toHex(f(0))}${toHex(f(8))}${toHex(f(4))}`;
+}
+function goldenColor(i){ return hslToHex((i*137.508)%360,62,58); }
+
+// ── control de capas (una sola visible por vez) ──
+function showNFLayer(name){
+  document.getElementById('nf-cards').classList.toggle('on', name==='cards');
+  document.getElementById('nf-mindmap').classList.toggle('on', name==='mindmap');
+  document.getElementById('nf-textframe').classList.toggle('on', name==='text');
+  document.getElementById('nf-panel-layer').classList.toggle('on', name==='canvas');
+  document.getElementById('mc2').classList.toggle('on', name==='canvas');
+  const ax=document.getElementById('scatter-axes'); if(ax) ax.classList.remove('on');
+}
+
+// ── tarjetas cognitivas ──
+function nfShowCards(n){
+  showNFLayer('cards');
+  document.getElementById('nf-card-1').classList.toggle('on', n>=1);
+  document.getElementById('nf-card-2').classList.toggle('on', n>=2);
+  document.getElementById('nf-card-3').classList.toggle('on', n>=3);
+}
+
+// ── frames de texto ──
+function nfShowText(eyebrow, text){
+  showNFLayer('text');
+  const inner=document.getElementById('nf-tf-inner');
+  inner.innerHTML=(eyebrow?`<span class="nf-tf-eyebrow">${eyebrow}</span>`:'')+`<p>${text}</p>`;
+}
+
+// ── mapa de nodos ──
+function nfPlaceNode(id,cfg){
+  const el=document.getElementById(id);
+  if(!el) return;
+  el.style.visibility='visible';
+  gsap.to(el,{left:cfg.left+'%',top:cfg.top+'%',xPercent:-50,yPercent:-50,scale:cfg.scale||1,opacity:1,duration:0.9,ease:'power3.out'});
+}
+function nfHideNode(id){
+  const el=typeof id==='string'?document.getElementById(id):id;
+  if(!el) return;
+  gsap.to(el,{opacity:0,duration:0.45,ease:'power2.in',onComplete:()=>{el.style.visibility='hidden';}});
+}
+const HUB_POS={cog:[30,36],socio:[70,36],fis:[30,66],ent:[70,66]};
+function mmToHub(){
+  showNFLayer('mindmap');
+  nfPlaceNode('node-cog',{left:HUB_POS.cog[0],top:HUB_POS.cog[1],scale:1});
+  nfPlaceNode('node-socio',{left:HUB_POS.socio[0],top:HUB_POS.socio[1],scale:1});
+  nfPlaceNode('node-fis',{left:HUB_POS.fis[0],top:HUB_POS.fis[1],scale:1});
+  nfPlaceNode('node-ent',{left:HUB_POS.ent[0],top:HUB_POS.ent[1],scale:1});
+  ['node-motiv','node-mind','node-stress'].forEach(nfHideNode);
+}
+function mmSocio(){
+  showNFLayer('mindmap');
+  ['node-cog','node-fis','node-ent'].forEach(nfHideNode);
+  nfPlaceNode('node-socio',{left:50,top:22,scale:1.3});
+  nfPlaceNode('node-motiv',{left:26,top:64,scale:1});
+  nfPlaceNode('node-mind',{left:50,top:73,scale:1});
+  nfPlaceNode('node-stress',{left:74,top:64,scale:1});
+}
+function mmEstresSub(){
+  showNFLayer('mindmap');
+  ['node-socio','node-motiv','node-mind'].forEach(nfHideNode);
+  nfPlaceNode('node-stress',{left:50,top:42,scale:1.55});
+}
+function mmFisico(){
+  showNFLayer('mindmap');
+  ['node-cog','node-socio','node-ent','node-motiv','node-mind','node-stress'].forEach(nfHideNode);
+  nfPlaceNode('node-fis',{left:50,top:42,scale:1.45});
+}
+function mmEntorno(){
+  showNFLayer('mindmap');
+  ['node-cog','node-socio','node-fis','node-motiv','node-mind','node-stress'].forEach(nfHideNode);
+  nfPlaceNode('node-ent',{left:50,top:42,scale:1.45});
+}
+
+// ── panel reutilizado ──
+function nfSetPanel(html,side,accent){
+  showNFLayer('canvas');
+  const panel=document.getElementById('nf-panel');
+  panel.classList.remove('L','R'); panel.classList.add(side);
+  panel.style.setProperty('--panel-accent',accent);
+  document.getElementById('nf-panel-inner').innerHTML=html;
+  panel.classList.remove('on'); void panel.offsetWidth; panel.classList.add('on');
+}
+
+// ── contenido de paneles (mismos textos/datos que el resto del proyecto) ──
+const PANEL_AULA=`<div class="p-num">Vista previa</div><div class="p-big">100<sub> personas</sub></div><div class="p-title">Un aula hecha de datos</div><p class="p-text">100 figuras representativas de 1000 estudiantes universitarios de EE.UU. Cada punto es una persona con su propia historia.</p>`;
+
+const PANEL_ESTRES=`<div class="p-num">Vista previa — Estrés</div><div class="p-big">4.1<sub>/10</sub></div><div class="p-title">El estrés que no aparece en las actas</div><p class="p-text">Nivel de estrés promedio: 4.1/10. Pero un 20% supera el nivel 7, correlacionando con notas más bajas.</p><div class="p-legend"><div class="pleg"><div class="pleg-dot" style="background:#4ade80"></div>Estrés bajo (&lt;3)<span class="pleg-count">25</span></div><div class="pleg"><div class="pleg-dot" style="background:#fbbf24"></div>Estrés medio (3–6)<span class="pleg-count">55</span></div><div class="pleg"><div class="pleg-dot" style="background:#f87171"></div>Estrés alto (&gt;6)<span class="pleg-count">20</span></div></div>`;
+
+const PANEL_FINANCIAMIENTO=`<div class="p-num">Financiamiento</div><div class="p-big">3<sub> fuentes</sub></div><div class="p-title">¿Quién financia la carrera?</div><p class="p-text">Solo 1 de cada 8 accede a una beca. La mayoría depende de recursos familiares o propios.</p><div class="p-legend"><div class="pleg"><div class="pleg-dot" style="background:#34d399"></div>Beca<span class="pleg-count">13</span></div><div class="pleg"><div class="pleg-dot" style="background:#60a5fa"></div>Familia<span class="pleg-count">60</span></div><div class="pleg"><div class="pleg-dot" style="background:#fbbf24"></div>Recursos propios<span class="pleg-count">27</span></div></div><div class="p-bar-wrap"><div class="p-bar-row">Beca<div class="p-bar-track"><div class="p-bar-fill" style="width:13%;background:#34d399"></div></div></div><div class="p-bar-row">Familia<div class="p-bar-track"><div class="p-bar-fill" style="width:60%;background:#60a5fa"></div></div></div><div class="p-bar-row">Propio<div class="p-bar-track"><div class="p-bar-fill" style="width:27%;background:#fbbf24"></div></div></div></div>`;
+
+const PANEL_TRABAJA=`<div class="p-num">Trabajo</div><div class="p-big">34<sub>%</sub></div><div class="p-title">1 de cada 3 trabaja mientras estudia</div><p class="p-text">Un tercio de los estudiantes tiene trabajo de medio tiempo, lo que comprime tiempo de estudio y sueño.</p><div class="p-legend"><div class="pleg"><div class="pleg-dot" style="background:#fb923c"></div>Trabaja<span class="pleg-count">34</span></div><div class="pleg"><div class="pleg-dot" style="background:#d1d5db"></div>No trabaja<span class="pleg-count">66</span></div></div><div class="p-bar-wrap"><div class="p-bar-row">Trabaja<div class="p-bar-track"><div class="p-bar-fill" style="width:34%;background:#fb923c"></div></div></div><div class="p-bar-row">No trabaja<div class="p-bar-track"><div class="p-bar-fill" style="width:66%;background:#d1d5db"></div></div></div></div>`;
+
+const PANEL_SCATTER=`<div class="p-num">Trabajo y estrés</div><div class="p-big" style="font-size:1.6rem;line-height:1.3">Trabajo<br>y Estrés</div><div class="p-title">Más horas de trabajo, más estrés</div><p class="p-text">Cada figurita vuela a su posición real: eje X = horas de trabajo semanales, eje Y = nivel de estrés. El patrón es claro.</p>`;
+
+const PANEL_INTERNET=`<div class="p-num">Conectividad</div><div class="p-big">8<sub> de 100</sub></div><div class="p-title">Sin acceso a internet</div><p class="p-text">El 7.6% estudia sin acceso confiable a internet, lo que impacta directamente en su rendimiento.</p><div class="p-legend"><div class="pleg"><div class="pleg-dot" style="background:#f87171"></div>Sin internet<span class="pleg-count">8</span></div><div class="pleg"><div class="pleg-dot" style="background:#4A90D9"></div>Con internet<span class="pleg-count">92</span></div></div><div class="p-bar-wrap"><div class="p-bar-row">Sin internet<div class="p-bar-track"><div class="p-bar-fill" style="width:8%;background:#f87171"></div></div></div><div class="p-bar-row">Con internet<div class="p-bar-track"><div class="p-bar-fill" style="width:92%;background:#4A90D9"></div></div></div></div>`;
+
+const PANEL_SLEEP=`<div class="p-num">Escena — Sueño</div><div class="p-big">73<sub>/100 prom.</sub></div><div class="p-title">Dormir bien, rendir mejor</div><p class="p-text">La nota promedio sube con las horas de sueño… hasta un punto. Entre 7 y 9 horas se registran los mejores resultados; dormir menos de 5 o más de 9 perjudica el rendimiento.</p><div class="p-bar-wrap"><div class="p-bar-row">&lt;5h<div class="p-bar-track"><div class="p-bar-fill" style="width:5%;background:#f87171"></div></div><span class="p-bar-score">57.5</span></div><div class="p-bar-row">5–6h<div class="p-bar-track"><div class="p-bar-fill" style="width:15%;background:#fb923c"></div></div><span class="p-bar-score">65.4</span></div><div class="p-bar-row">6–7h<div class="p-bar-track"><div class="p-bar-fill" style="width:27%;background:#fbbf24"></div></div><span class="p-bar-score">72.3</span></div><div class="p-bar-row">7–8h<div class="p-bar-track"><div class="p-bar-fill" style="width:32%;background:#4ade80"></div></div><span class="p-bar-score">73.2</span></div><div class="p-bar-row">8–9h<div class="p-bar-track"><div class="p-bar-fill" style="width:15%;background:#34d399"></div></div><span class="p-bar-score">74.3</span></div><div class="p-bar-row">9h+<div class="p-bar-track"><div class="p-bar-fill" style="width:6%;background:#fb923c"></div></div><span class="p-bar-score">67.3</span></div></div><p class="gr-note" style="text-align:left;margin-top:.6rem">% de estudiantes por rango de sueño · nota promedio a la derecha</p>`;
+
+const PANEL_CLOSING_A=`<div class="p-num">Cierre</div><div class="p-title">Una red de factores</div><p class="p-text">Como vemos, los factores que influyen en la capacidad de aprender no son únicos ni actúan de forma independiente entre sí.</p>`;
+
+const PANEL_CLOSING_B=`<div class="p-num">Cierre</div><div class="p-title">Cada estudiante tiene una historia diferente que contar.</div>`;
+
+// ── escenas de datos (reutilizan DATA / shuffle del motor principal) ──
+function nfSceneAula(){
+  applyOrder2(shuffle([...Array(100).keys()]));
+  persons2.forEach(p=>p.setColor('#2C3E7A'));
+  nfSetPanel(PANEL_AULA,'L','#b39dfa');
+}
+function nfSceneEstres(){
+  const Hi=shuffle(DATA.map((_,i)=>i).filter(i=>DATA[i].b<=3));
+  const Md=shuffle(DATA.map((_,i)=>i).filter(i=>DATA[i].b>=4&&DATA[i].b<=6));
+  const Lo=shuffle(DATA.map((_,i)=>i).filter(i=>DATA[i].b>=7));
+  applyOrder2([...Hi,...Md,...Lo]);
+  persons2.forEach(p=>{ const col=p.d.b<=3?'#f87171':p.d.b<=6?'#fbbf24':'#4ade80'; p.setColor(col); });
+  nfSetPanel(PANEL_ESTRES,'R','#fbbf24');
+}
+function nfSceneFinanciamiento(){
+  const B=shuffle(DATA.map((_,i)=>i).filter(i=>DATA[i].f==='beca'));
+  const F=shuffle(DATA.map((_,i)=>i).filter(i=>DATA[i].f==='familiar'));
+  const P=shuffle(DATA.map((_,i)=>i).filter(i=>DATA[i].f==='propio'));
+  applyOrder2([...B,...F,...P]);
+  const cm={beca:'#34d399',familiar:'#60a5fa',propio:'#fbbf24'};
+  persons2.forEach(p=>p.setColor(cm[p.d.f]));
+  nfSetPanel(PANEL_FINANCIAMIENTO,'R','#34d399');
+}
+function nfSceneTrabaja(){
+  const T=shuffle(DATA.map((_,i)=>i).filter(i=>DATA[i].t));
+  const N=shuffle(DATA.map((_,i)=>i).filter(i=>!DATA[i].t));
+  applyOrder2([...T,...N]);
+  persons2.forEach(p=>p.setColor(p.d.t?'#fb923c':'#c4cad4'));
+  nfSetPanel(PANEL_TRABAJA,'L','#fb923c');
+}
+function nfSceneScatter(){
+  const pad=0.14, usable=1-2*pad;
+  const sorted=[...persons2].sort((a,b)=>{
+    const sA=(a.d.hw/40)*0.65+((9-a.d.b)/7)*0.35;
+    const sB=(b.d.hw/40)*0.65+((9-b.d.b)/7)*0.35;
+    return sA-sB;
+  });
+  sorted.forEach((p,i)=>{
+    const t=i/(sorted.length-1);
+    const xBase=t*0.88+0.04, yBase=t*0.88+0.04;
+    const j=(((p.i*13+7)%11)-5)/11*0.07;
+    const jx=j, jy=-j+(((p.i*17+3)%9)-4)/9*0.03;
+    p.setTarget(mc2W*(pad+Math.max(0,Math.min(1,xBase+jx))*usable), mc2H*(pad+Math.max(0,Math.min(1,yBase+jy))*usable));
+    const yFinal=Math.max(0,Math.min(1,yBase+jy));
+    p.setColor(yFinal<0.38?'#4ade80':yFinal<0.65?'#fbbf24':'#f87171');
+  });
+  nfSetPanel(PANEL_SCATTER,'L','#a3e635');
+  document.getElementById('scatter-axes').classList.add('on');
+}
+function nfSceneInternet(){
+  const N=shuffle(DATA.map((_,i)=>i).filter(i=>!DATA[i].c));
+  const Y=shuffle(DATA.map((_,i)=>i).filter(i=>DATA[i].c));
+  applyOrder2([...N,...Y]);
+  persons2.forEach(p=>p.setColor(!p.d.c?'#f87171':'#4A90D9'));
+  nfSetPanel(PANEL_INTERNET,'L','#f87171');
+}
+function nfSceneSleep(){
+  const order=shuffle([...Array(100).keys()]);
+  applyOrder2(order);
+  const buckets=[5,15,27,32,15,6];
+  const colors=['#f87171','#fb923c','#fbbf24','#4ade80','#34d399','#fb923c'];
+  let idx=0;
+  buckets.forEach((n,bi)=>{
+    for(let k=0;k<n;k++){ persons2[order[idx]].setColor(colors[bi]); idx++; }
+  });
+  nfSetPanel(PANEL_SLEEP,'R','#34d399');
+}
+function nfSceneMulticolor(which){
+  applyOrder2(shuffle([...Array(100).keys()]));
+  persons2.forEach(p=>p.setColor(goldenColor(p.i)));
+  nfSetPanel(which==='A'?PANEL_CLOSING_A:PANEL_CLOSING_B,'L','#b39dfa');
+}
+
+// ── guion de 29 pasos ──
+const NF_STEP_FN={
+  1:()=>nfShowCards(1),
+  2:()=>nfShowCards(2),
+  3:()=>nfShowCards(3),
+  4:()=>nfShowText(null,'Sin embargo, existen <em>otros factores</em>…'),
+  5:()=>mmToHub(),
+  6:()=>mmSocio(),
+  7:()=>mmEstresSub(),
+  8:()=>nfShowText(null,'Niveles altos de <em>cortisol</em> bloquean la consolidación de la memoria y la plasticidad cerebral.'),
+  9:()=>nfShowText(null,'Los siguientes datos corresponden a una muestra de <em>1.000 estudiantes universitarios</em> de Estados Unidos.'),
+  10:()=>nfSceneAula(),
+  11:()=>nfSceneEstres(),
+  12:()=>mmToHub(),
+  13:()=>mmFisico(),
+  14:()=>nfShowText('Descanso y sueño','Durante el sueño, el cerebro procesa y consolida todo lo aprendido durante el día.'),
+  15:()=>nfSceneSleep(),
+  16:()=>nfShowText(null,'Además, la salud general, el mantenimiento de una dieta equilibrada, una correcta hidratación y un estilo de vida activo son fundamentales para el correcto funcionamiento del cerebro y de las neuronas.'),
+  17:()=>mmToHub(),
+  18:()=>mmEntorno(),
+  19:()=>nfShowText(null,'La pedagogía utilizada, las estrategias didácticas y el material disponible influyen directamente en la efectividad del aprendizaje. Además, cada individuo procesa mejor la información de maneras distintas.'),
+  20:()=>nfShowText('Entorno','El entorno en el que se desarrolla una persona incide directamente en su aprendizaje.'),
+  21:()=>nfSceneFinanciamiento(),
+  22:()=>nfShowText(null,'Aquellos estudiantes que no puedan acceder a una beca y cuyas familias no cuenten con los recursos suficientes para afrontar los costos de la carrera deberán recurrir a un trabajo para poder continuar estudiando.'),
+  23:()=>nfSceneTrabaja(),
+  24:()=>nfShowText(null,'Esto incide directamente sobre otro de los factores analizados…'),
+  25:()=>nfSceneScatter(),
+  26:()=>nfShowText(null,'El ambiente en el que viven también puede convertirse en un limitante para el aprendizaje.'),
+  27:()=>nfSceneInternet(),
+  28:()=>nfSceneMulticolor('A'),
+  29:()=>nfSceneMulticolor('B'),
+};
+const NF_LABELS={5:'Mapa de factores',6:'Socioafectivos y emocionales',7:'Gestión del estrés',10:'El aula',11:'Estrés',12:'Mapa de factores',13:'Físicos y biológicos',15:'Sueño',17:'Mapa de factores',18:'Entorno y pedagogía',21:'Financiamiento',23:'Trabajo',25:'Trabajo y estrés',27:'Conectividad',28:'Cierre',29:'Cierre'};
+
+let curNF=-1, nfStagT;
+function goNF(n){
+  if(curNF===n) return;
+  curNF=n;
+  NF_STEP_FN[n] && NF_STEP_FN[n]();
+  const tag=document.getElementById('nf-stagelabel');
+  clearTimeout(nfStagT);
+  if(NF_LABELS[n]){ tag.textContent=NF_LABELS[n]; tag.classList.add('on'); nfStagT=setTimeout(()=>tag.classList.remove('on'),2200); }
+  else tag.classList.remove('on');
+}
+
+for(let n=1;n<=29;n++){
+  const el=document.querySelector(`.nf-ss[data-nf="${n}"]`);
+  if(!el) continue;
+  ScrollTrigger.create({
+    trigger:el, start:'top 60%', end:'bottom 40%',
+    onEnter:()=>goNF(n),
+    onEnterBack:()=>goNF(n),
+  });
+}
+
+})();
 </script>
 </body>
 </html>
