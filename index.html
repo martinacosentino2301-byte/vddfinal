@@ -436,7 +436,10 @@ canvas#mc2{will-change:contents;image-rendering:auto}
 /* El panel aporta contexto; las leyendas y barras ya están representadas en el lienzo. */
 .panel .p-legend,.panel .p-bar-wrap{display:none}
 /* La leyenda inferior duplicaba la información de la visualización. */
-#nf-scene-counter{display:none!important}
+#nf-scene-counter{display:flex!important;left:auto;right:1.5rem;bottom:1.35rem;transform:none;max-width:min(430px,calc(100vw - 3rem));padding:.52rem .65rem .58rem;background:rgba(255,255,255,.72);border:1px solid rgba(74,144,217,.18);border-radius:14px;box-shadow:0 6px 20px rgba(74,144,217,.12)}
+#nf-scene-counter::before{content:'Referencias';width:100%;font-family:'Syne',sans-serif;font-size:.5rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:0 .2rem .05rem}
+#nf-scene-counter{align-items:flex-start;flex-direction:row}.nf-cnt-chip{font-size:.6rem;padding:.24rem .6rem}@media(max-width:640px){#nf-scene-counter{right:.7rem;bottom:.7rem;max-width:calc(100vw - 1.4rem)}}
+#nf-scene-counter{max-width:min(570px,calc(100vw - 3rem));padding:.8rem .9rem .85rem;border-radius:18px;gap:.72rem}#nf-scene-counter::before{font-size:.64rem;margin-bottom:.16rem}.nf-cnt-chip{font-size:.76rem;padding:.4rem .82rem}.nf-cnt-dot{width:10px;height:10px;margin-right:.48rem}@media(max-width:640px){#nf-scene-counter{max-width:calc(100vw - 1.4rem);padding:.65rem .7rem}.nf-cnt-chip{font-size:.68rem;padding:.35rem .65rem}}
 /* El indicador de perfil replica el brillo dorado de la figura destacada. */
 #mirror-badge{color:#b87913;border-color:rgba(244,183,64,.42);box-shadow:0 5px 20px rgba(244,183,64,.28),0 1px 5px rgba(26,26,46,.08);background:rgba(255,253,245,.94)}
 .mirror-dot{background:#F4B740;box-shadow:0 0 0 3px rgba(244,183,64,.18),0 0 12px rgba(244,183,64,.9)}
@@ -520,6 +523,19 @@ body,#cover,#intro,#nf-lead,#nf-sticky,#game{background:#EBF4FF}
 #nf-cta-screen::before{opacity:.6;background-image:radial-gradient(circle,rgba(74,144,217,.1) 1px,transparent 1px);background-size:40px 40px;mask-image:none}
 #nf-cta-screen::after,.nf-cta-deco{display:none}#cta-walk{position:absolute;bottom:0;left:0;width:100%;height:120px;z-index:1;pointer-events:none}.nf-cta-inner{z-index:2;max-width:900px}.nf-cta-title{font-size:clamp(3rem,6vw,5.2rem);line-height:1.04;background:linear-gradient(135deg,#1A1A2E 0%,#2C3E7A 50%,#4A90D9 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.nf-cta-sub{font-size:clamp(.9rem,1.4vw,1.05rem);max-width:540px}
 #nf-cta-screen .nf-cta-title{background:linear-gradient(135deg,#1A1A2E 0%,#2C3E7A 50%,#4A90D9 100%)!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;color:transparent!important}
+
+/* Referencias: centradas bajo la visualización para leerse como parte del gráfico. */
+#nf-scene-counter{left:50%;right:auto;bottom:1.35rem;transform:translateX(-50%);width:max-content;max-width:min(720px,calc(100vw - 3rem));justify-content:center;text-align:center}
+#nf-scene-counter::before{text-align:center}
+@media(max-width:640px){#nf-scene-counter{left:50%;right:auto;bottom:.7rem;max-width:calc(100vw - 1.4rem)}}
+
+/* Portada del simulador: misma composición luminosa y degradé azul de la referencia. */
+#nf-cta-screen{background:linear-gradient(160deg,#a2c5ee 0%,#c1d9f5 28%,#e1efff 58%,#e8e5ff 100%)}
+#nf-cta-screen .nf-cta-inner{width:min(920px,92vw);padding:2rem;text-align:center}
+#nf-cta-screen .nf-cta-eyebrow{color:#4A90D9;letter-spacing:.22em}
+#nf-cta-screen .nf-cta-rule{margin:.9rem auto 1.5rem}
+#nf-cta-screen .nf-cta-title{font-family:'Syne',sans-serif;font-size:clamp(3.5rem,6.2vw,5.8rem);font-weight:800;line-height:1;letter-spacing:-.04em;text-transform:uppercase;background:none!important;-webkit-background-clip:initial!important;background-clip:initial!important;-webkit-text-fill-color:#4A90D9!important;color:#4A90D9!important}
+#nf-cta-screen .nf-cta-sub{max-width:620px;margin:1.7rem auto 0;font-size:clamp(1rem,1.35vw,1.2rem);line-height:1.6;color:#4d607d}
 
 </style>
 </head>
@@ -725,7 +741,7 @@ body,#cover,#intro,#nf-lead,#nf-sticky,#game{background:#EBF4FF}
       <div class="nf-cta-inner">
         <span class="nf-cta-eyebrow">Simulador interactivo</span>
         <div class="nf-cta-rule"></div>
-        <h2 class="nf-cta-title">¿Querés saber tu nota?</h2>
+        <h2 class="nf-cta-title">¿Querés<br>saber tu<br>nota?</h2>
         <p class="nf-cta-sub">Ajustá tus factores reales y descubrí qué puntaje obtendrías, calibrado con datos de 1.000 estudiantes.</p>
       </div>
     </div>
@@ -2118,7 +2134,7 @@ function nfSceneScatter(){
   });
   nfSetPanel(PANEL_SCATTER,'R','#a3e635');
   document.getElementById('scatter-axes').classList.add('on');
-  setCounter([{color:'#f87171',label:'↑ alto estrés'},{color:'#4ade80',label:'↓ bajo estrés'}]);
+  setCounter([{color:'#f87171',label:'estrés alto'},{color:'#fbbf24',label:'estrés medio'},{color:'#4ade80',label:'estrés bajo'}]);
 }
 function nfSceneInternet(){
   const N=STABLE_ORDER.filter(i=>!DATA[i].c);
@@ -2138,6 +2154,7 @@ function nfSceneSleep(){
     for(let k=0;k<n;k++){ persons2[order[idx]].setColor(colors[bi]); idx++; }
   });
   nfSetPanel(PANEL_SLEEP,'R','#34d399');
+  setCounter([{color:'#f87171',label:'menos de 5 h'},{color:'#fb923c',label:'5–6 h / 9 h+'},{color:'#fbbf24',label:'6–7 h'},{color:'#4ade80',label:'7–8 h'},{color:'#34d399',label:'8–9 h'}]);
 }
 function nfSceneMulticolor(which){
   applyOrder2(STABLE_ORDER);
