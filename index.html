@@ -537,66 +537,280 @@ body,#cover,#intro,#nf-lead,#nf-sticky,#game{background:#EBF4FF}
 #nf-cta-screen .nf-cta-title{font-family:'Syne',sans-serif;font-size:clamp(3.5rem,6.2vw,5.8rem);font-weight:800;line-height:1;letter-spacing:-.04em;text-transform:uppercase;background:none!important;-webkit-background-clip:initial!important;background-clip:initial!important;-webkit-text-fill-color:#4A90D9!important;color:#4A90D9!important}
 #nf-cta-screen .nf-cta-sub{max-width:620px;margin:1.7rem auto 0;font-size:clamp(1rem,1.35vw,1.2rem);line-height:1.6;color:#4d607d}
 
+/* ══ MIRROR SCREEN — REDISEÑO COMPLETO ══ */
+#mirror-screen{
+  background:#EBF4FF !important;
+  justify-content:flex-start !important;
+  align-items:stretch !important;
+  padding:0 !important;
+  overflow-y:auto !important;
+}
+#mirror-screen::before{
+  content:'' !important;
+  position:fixed !important;
+  inset:0 !important;
+  border-radius:0 !important;
+  width:auto !important; height:auto !important;
+  top:0 !important; right:0 !important;
+  filter:none !important;
+  background-image:radial-gradient(circle,rgba(74,144,217,.1) 1px,transparent 1px) !important;
+  background-size:36px 36px !important;
+  background-color:transparent !important;
+  opacity:.55 !important;
+  z-index:0 !important;
+}
+#mirror-screen::after{display:none !important}
+.mirror-deco{display:none !important}
+.ms-deco{position:fixed;inset:0;pointer-events:none;z-index:0}
+.ms-wrap{
+  position:relative;
+  z-index:1;
+  width:100%;
+  max-width:860px;
+  margin:0 auto;
+  padding:3rem 2rem 2.5rem;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:.6rem;
+}
+.mirror-title{
+  font-family:'Syne',sans-serif !important;
+  font-size:clamp(1.7rem,3vw,2.6rem) !important;
+  font-weight:800 !important;
+  text-transform:uppercase !important;
+  letter-spacing:.04em !important;
+  line-height:1.1 !important;
+  text-align:center !important;
+  background:linear-gradient(135deg,#4A90D9 0%,#7b6fd4 55%,#b39dfa 100%) !important;
+  -webkit-background-clip:text !important;
+  background-clip:text !important;
+  -webkit-text-fill-color:transparent !important;
+  color:transparent !important;
+  margin:0 !important;
+}
+.ms-sub{
+  font-family:'Inter',sans-serif;
+  font-size:.85rem;
+  color:var(--muted);
+  text-align:center;
+  margin:0 0 .6rem;
+  max-width:440px;
+  line-height:1.6;
+}
+.mirror-questions{
+  display:grid !important;
+  grid-template-columns:repeat(2,1fr) !important;
+  gap:1rem !important;
+  width:100% !important;
+  max-width:none !important;
+  flex-direction:unset !important;
+}
+.mq{
+  background:rgba(255,255,255,.9) !important;
+  border:1px solid rgba(74,144,217,.18) !important;
+  border-radius:16px !important;
+  padding:1.3rem 1.4rem 1.1rem !important;
+  box-shadow:0 4px 18px rgba(74,144,217,.1),0 1px 4px rgba(0,0,0,.04) !important;
+  backdrop-filter:blur(10px) !important;
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:flex-start !important;
+  min-height:auto !important;
+  text-align:left !important;
+  position:relative !important;
+  overflow:hidden !important;
+  transition:transform .18s,box-shadow .18s,border-color .18s !important;
+}
+.mq::before{
+  content:'' !important;
+  position:absolute !important;
+  top:0 !important; left:0 !important; right:0 !important;
+  height:3px !important;
+  background:linear-gradient(90deg,#4A90D9,#b39dfa) !important;
+}
+.mq:hover{
+  transform:translateY(-2px) !important;
+  box-shadow:0 8px 28px rgba(74,144,217,.16),0 2px 6px rgba(0,0,0,.06) !important;
+  border-color:rgba(74,144,217,.3) !important;
+}
+.mq-icon{display:none !important}
+.mq-text{
+  font-family:'Syne',sans-serif !important;
+  font-size:.8rem !important;
+  font-weight:700 !important;
+  color:#1A1A2E !important;
+  margin-bottom:.8rem !important;
+  line-height:1.35 !important;
+}
+.mq-opts{
+  display:flex !important;
+  flex-wrap:wrap !important;
+  gap:.38rem !important;
+  justify-content:flex-start !important;
+}
+.mq-btn{
+  padding:.34rem .85rem !important;
+  border:1.5px solid rgba(74,144,217,.35) !important;
+  border-radius:50px !important;
+  background:rgba(255,255,255,.95) !important;
+  color:#2C3E7A !important;
+  font-family:'Inter',sans-serif !important;
+  font-size:.71rem !important;
+  font-weight:500 !important;
+  cursor:pointer !important;
+  transition:all .14s ease !important;
+  margin:0 !important;
+  line-height:1.4 !important;
+}
+.mq-btn:hover{
+  background:#4A90D9 !important;
+  border-color:#4A90D9 !important;
+  color:#fff !important;
+  transform:translateY(-1px) !important;
+  box-shadow:0 4px 12px rgba(74,144,217,.28) !important;
+}
+.mq-btn:active{transform:scale(.95) !important}
+.mq-btn.sel{
+  background:linear-gradient(135deg,#4A90D9,#2C3E7A) !important;
+  border-color:transparent !important;
+  color:#fff !important;
+  font-weight:700 !important;
+  box-shadow:0 3px 12px rgba(74,144,217,.35) !important;
+}
+.mirror-cta{
+  margin-top:1.6rem !important;
+  padding:.76rem 2.6rem !important;
+  background:linear-gradient(135deg,#4A90D9,#2C3E7A) !important;
+  border:none !important;
+  border-radius:50px !important;
+  font-family:'Syne',sans-serif !important;
+  font-size:.8rem !important;
+  font-weight:700 !important;
+  letter-spacing:.1em !important;
+  text-transform:uppercase !important;
+  color:#fff !important;
+  cursor:pointer !important;
+  opacity:.45 !important;
+  box-shadow:0 6px 22px rgba(74,144,217,.28) !important;
+  transition:opacity .2s,transform .15s,box-shadow .2s !important;
+}
+.mirror-cta.ready{opacity:1 !important}
+.mirror-cta.ready:hover{
+  transform:translateY(-2px) !important;
+  box-shadow:0 10px 30px rgba(74,144,217,.42) !important;
+}
+.mirror-cta:active{transform:scale(.96) !important}
+@media(max-width:640px){
+  .ms-wrap{padding:1.2rem 1rem 1.4rem}
+  .mirror-questions{grid-template-columns:1fr !important}
+  .mirror-title{font-size:clamp(1.4rem,7vw,2rem) !important}
+}
+
+/* nf-lead: mismo tamaño de título que intro */
+.nf-lead-box h2{font-size:clamp(1.6rem,3.2vw,2.6rem) !important;line-height:1.18 !important}
+@media(max-width:640px){.nf-lead-box h2{font-size:clamp(1.4rem,5.5vw,2rem) !important}}
+
+/* CTA screen: misma estética que la portada */
+#nf-cta-screen .nf-cta-eyebrow{display:block!important}
+.nf-cta-btn{background:transparent!important;border:2px solid var(--accent)!important;border-radius:3px!important;color:var(--accent)!important;box-shadow:none!important;letter-spacing:.14em}
+.nf-cta-btn:hover{background:var(--accent)!important;color:#fff!important;box-shadow:0 10px 32px rgba(74,144,217,.28)!important;transform:translateY(-3px)!important}
+.nf-cta-btn:active{transform:translateY(-1px) scale(.97)!important}
+.nf-cta-rule{background:linear-gradient(90deg,var(--accent),var(--accent2))!important}
+
 </style>
 </head>
 <body>
 
 <!-- ══ MIRROR SCREEN ══ -->
 <div id="mirror-screen">
-  <span class="mirror-deco mirror-deco-a" aria-hidden="true">✦</span>
-  <span class="mirror-deco mirror-deco-b" aria-hidden="true">✿</span>
-  <h1 class="mirror-title">Antes de entrar, contanos un poco sobre vos.</h1>
-  <p style="font-family:'Inter',sans-serif;font-size:.8rem;color:var(--muted);margin-bottom:1rem;text-align:center;max-width:380px;line-height:1.6">Tus respuestas identificarán tu personaje en la visualización, que permanecerá iluminado a lo largo de toda la historia.</p>
-  <div class="mirror-questions">
-    <div class="mq">
-      <div class="mq-text">¿Con qué género te identificás?</div>
-      <div class="mq-opts">
-        <button class="mq-btn" data-q="1" data-v="F">Mujer</button>
-        <button class="mq-btn" data-q="1" data-v="M">Varón</button>
-      </div>
-    </div>
-    <div class="mq">
-      <div class="mq-text">¿Trabajás mientras estudiás?</div>
-      <div class="mq-opts">
-        <button class="mq-btn" data-q="2" data-v="si">Sí</button>
-        <button class="mq-btn" data-q="2" data-v="no">No</button>
-      </div>
-    </div>
-    <div class="mq">
-      <div class="mq-text">¿Cómo financiás tus estudios?</div>
-      <div class="mq-opts">
-        <button class="mq-btn" data-q="3" data-v="beca">Beca</button>
-        <button class="mq-btn" data-q="3" data-v="familiar">Familia</button>
-        <button class="mq-btn" data-q="3" data-v="propio">Recursos propios</button>
-      </div>
-    </div>
-    <div class="mq">
-      <div class="mq-text">¿Tenés acceso confiable a internet?</div>
-      <div class="mq-opts">
-        <button class="mq-btn" data-q="4" data-v="si">Sí</button>
-        <button class="mq-btn" data-q="4" data-v="no">No</button>
-      </div>
-    </div>
-    <div class="mq">
-      <div class="mq-text">¿Cómo definirías tu nivel de estrés habitualmente?</div>
-      <div class="mq-opts">
-        <button class="mq-btn" data-q="5" data-v="low">Bajo</button>
-        <button class="mq-btn" data-q="5" data-v="mid">Moderado</button>
-        <button class="mq-btn" data-q="5" data-v="high">Alto</button>
-      </div>
-    </div>
-    <div class="mq">
-      <div class="mq-text">¿Cuántas horas semanales trabajás de forma remunerada?</div>
-      <div class="mq-opts">
-        <button class="mq-btn" data-q="6" data-v="none">No trabajo</button>
-        <button class="mq-btn" data-q="6" data-v="low">1–15h</button>
-        <button class="mq-btn" data-q="6" data-v="mid">16–30h</button>
-        <button class="mq-btn" data-q="6" data-v="high">+30h</button>
-      </div>
-    </div>
+  <!-- decoración de fondo -->
+  <div class="ms-deco" aria-hidden="true">
+    <!-- fila superior -->
+    <svg class="nf-deco-ico" style="left:4%;top:6%;width:42px;opacity:.22;color:#4A90D9;transform:rotate(-10deg)"><use href="#ico-deco-cloud"/></svg>
+    <svg class="nf-deco-ico" style="left:22%;top:4%;width:32px;opacity:.18;color:#b39dfa;transform:rotate(6deg)"><use href="#ico-deco-notebook"/></svg>
+    <svg class="nf-deco-ico" style="left:50%;top:5%;width:36px;opacity:.17;color:#2C3E7A;transform:rotate(-4deg)"><use href="#ico-deco-calc"/></svg>
+    <svg class="nf-deco-ico" style="left:74%;top:4%;width:34px;opacity:.19;color:#60a5fa;transform:rotate(8deg)"><use href="#ico-deco-folder"/></svg>
+    <svg class="nf-deco-ico" style="right:3%;top:7%;width:40px;opacity:.21;color:#b39dfa;transform:rotate(-7deg)"><use href="#ico-deco-map"/></svg>
+    <!-- fila medio-alta -->
+    <svg class="nf-deco-ico" style="left:2%;top:28%;width:36px;opacity:.19;color:#a78bfa;transform:rotate(5deg)"><use href="#ico-deco-person"/></svg>
+    <svg class="nf-deco-ico" style="left:16%;top:26%;width:30px;opacity:.15;color:#4A90D9;transform:rotate(-8deg)"><use href="#ico-deco-map"/></svg>
+    <svg class="nf-deco-ico" style="right:14%;top:27%;width:32px;opacity:.16;color:#b39dfa;transform:rotate(11deg)"><use href="#ico-deco-cloud"/></svg>
+    <svg class="nf-deco-ico" style="right:2%;top:29%;width:38px;opacity:.20;color:#4A90D9;transform:rotate(-6deg)"><use href="#ico-deco-notebook"/></svg>
+    <!-- fila medio-baja -->
+    <svg class="nf-deco-ico" style="left:3%;top:62%;width:34px;opacity:.18;color:#2C3E7A;transform:rotate(7deg)"><use href="#ico-deco-folder"/></svg>
+    <svg class="nf-deco-ico" style="left:17%;top:64%;width:30px;opacity:.15;color:#60a5fa;transform:rotate(-5deg)"><use href="#ico-deco-calc"/></svg>
+    <svg class="nf-deco-ico" style="right:15%;top:63%;width:34px;opacity:.16;color:#a78bfa;transform:rotate(9deg)"><use href="#ico-deco-person"/></svg>
+    <svg class="nf-deco-ico" style="right:3%;top:61%;width:36px;opacity:.19;color:#b39dfa;transform:rotate(-10deg)"><use href="#ico-deco-map"/></svg>
+    <!-- fila inferior -->
+    <svg class="nf-deco-ico" style="left:4%;top:86%;width:38px;opacity:.17;color:#4A90D9;transform:rotate(-8deg)"><use href="#ico-deco-notebook"/></svg>
+    <svg class="nf-deco-ico" style="left:24%;top:88%;width:30px;opacity:.15;color:#b39dfa;transform:rotate(6deg)"><use href="#ico-deco-cloud"/></svg>
+    <svg class="nf-deco-ico" style="left:52%;top:87%;width:34px;opacity:.16;color:#a78bfa;transform:rotate(-5deg)"><use href="#ico-deco-person"/></svg>
+    <svg class="nf-deco-ico" style="left:76%;top:88%;width:32px;opacity:.17;color:#60a5fa;transform:rotate(10deg)"><use href="#ico-deco-folder"/></svg>
+    <svg class="nf-deco-ico" style="right:3%;top:86%;width:36px;opacity:.18;color:#2C3E7A;transform:rotate(-7deg)"><use href="#ico-deco-calc"/></svg>
+    <!-- símbolos dispersos -->
+    <span class="nf-deco-num" style="left:10%;top:14%;font-size:2.4rem;opacity:.13;color:#4A90D9;transform:rotate(-8deg)">%</span>
+    <span class="nf-deco-num" style="left:38%;top:15%;font-size:1.8rem;opacity:.11;color:#b39dfa;transform:rotate(5deg)">+</span>
+    <span class="nf-deco-num" style="right:10%;top:16%;font-size:2rem;opacity:.12;color:#a78bfa;transform:rotate(-9deg)">✦</span>
+    <span class="nf-deco-num" style="left:8%;top:46%;font-size:1.9rem;opacity:.11;color:#b39dfa;transform:rotate(6deg)">✦</span>
+    <span class="nf-deco-num" style="right:9%;top:47%;font-size:2.2rem;opacity:.12;color:#4A90D9;transform:rotate(-5deg)">%</span>
+    <span class="nf-deco-num" style="left:30%;top:77%;font-size:1.7rem;opacity:.11;color:#60a5fa;transform:rotate(8deg)">+</span>
+    <span class="nf-deco-num" style="right:28%;top:76%;font-size:2rem;opacity:.12;color:#b39dfa;transform:rotate(-7deg)">✦</span>
   </div>
-  <button class="mirror-cta" id="mirror-enter">Entrar al aula →</button>
-  <p id="mirror-error" style="color:#d85a30;font-size:.8rem;font-family:'Inter',sans-serif;margin-top:.7rem;min-height:1.2em;text-align:center;display:none"></p>
+  <div class="ms-wrap">
+    <h1 class="mirror-title">Antes de entrar...<br>contanos sobre vos</h1>
+    <p class="ms-sub">Tus respuestas iluminarán tu figura a lo largo de toda la historia.</p>
+    <div class="mirror-questions">
+      <div class="mq">
+        <div class="mq-text">¿Con qué género te identificás?</div>
+        <div class="mq-opts">
+          <button class="mq-btn" data-q="1" data-v="F">Mujer</button>
+          <button class="mq-btn" data-q="1" data-v="M">Varón</button>
+        </div>
+      </div>
+      <div class="mq">
+        <div class="mq-text">¿Trabajás mientras estudiás?</div>
+        <div class="mq-opts">
+          <button class="mq-btn" data-q="2" data-v="si">Sí</button>
+          <button class="mq-btn" data-q="2" data-v="no">No</button>
+        </div>
+      </div>
+      <div class="mq">
+        <div class="mq-text">¿Cómo financiás tus estudios?</div>
+        <div class="mq-opts">
+          <button class="mq-btn" data-q="3" data-v="beca">Beca</button>
+          <button class="mq-btn" data-q="3" data-v="familiar">Familia</button>
+          <button class="mq-btn" data-q="3" data-v="propio">Recursos propios</button>
+        </div>
+      </div>
+      <div class="mq">
+        <div class="mq-text">¿Tenés acceso confiable a internet?</div>
+        <div class="mq-opts">
+          <button class="mq-btn" data-q="4" data-v="si">Sí</button>
+          <button class="mq-btn" data-q="4" data-v="no">No</button>
+        </div>
+      </div>
+      <div class="mq">
+        <div class="mq-text">¿Cómo definirías tu nivel de estrés habitualmente?</div>
+        <div class="mq-opts">
+          <button class="mq-btn" data-q="5" data-v="low">Bajo</button>
+          <button class="mq-btn" data-q="5" data-v="mid">Moderado</button>
+          <button class="mq-btn" data-q="5" data-v="high">Alto</button>
+        </div>
+      </div>
+      <div class="mq">
+        <div class="mq-text">¿Cuántas horas semanales trabajás de forma remunerada?</div>
+        <div class="mq-opts">
+          <button class="mq-btn" data-q="6" data-v="none">No trabajo</button>
+          <button class="mq-btn" data-q="6" data-v="low">1–15h</button>
+          <button class="mq-btn" data-q="6" data-v="mid">16–30h</button>
+          <button class="mq-btn" data-q="6" data-v="high">+30h</button>
+        </div>
+      </div>
+    </div>
+    <button class="mirror-cta" id="mirror-enter">Entrar al aula →</button>
+    <p id="mirror-error" style="color:#d85a30;font-size:.8rem;font-family:'Inter',sans-serif;margin-top:.5rem;min-height:1.2em;text-align:center;display:none"></p>
+  </div>
 </div>
 
 <!-- ══ MIRROR BADGE ══ -->
